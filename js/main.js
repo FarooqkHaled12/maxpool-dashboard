@@ -85,17 +85,17 @@ document.addEventListener('DOMContentLoaded', () => {
   waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
   waBtn.style.cssText = `
     position: fixed;
-    bottom: 30px;
-    left: 30px;
+    bottom: 24px;
+    right: 20px;
     background-color: #25D366;
     color: white;
     border-radius: 50%;
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 36px;
+    font-size: 30px;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
     z-index: 9999;
     text-decoration: none;
@@ -163,9 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
       cartIcon = document.createElement('div');
       cartIcon.id = 'floatingCartBtn';
       cartIcon.style.cssText = `
-        position: fixed; bottom: 100px; left: 30px; background: #004b87; color: white;
-        border-radius: 50%; width: 60px; height: 60px; display: flex; justify-content: center;
-        align-items: center; font-size: 24px; box-shadow: 0 4px 15px rgba(0,75,135,0.4);
+        position: fixed; bottom: 90px; right: 20px; background: #004b87; color: white;
+        border-radius: 50%; width: 52px; height: 52px; display: flex; justify-content: center;
+        align-items: center; font-size: 22px; box-shadow: 0 4px 15px rgba(0,75,135,0.4);
         z-index: 9998; cursor: pointer; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       `;
       cartIcon.onmouseover = () => cartIcon.style.transform = 'scale(1.15)';
