@@ -18,15 +18,21 @@ body {
 .navbar-inner        { flex-direction: row-reverse; }
 .navbar-links        { flex-direction: row-reverse; }
 
-/* Mobile navbar — slide from RIGHT in RTL */
+/* Mobile navbar — override main.css display:none, use visibility instead for RTL slide from right */
 @media (max-width: 767px) {
   .navbar-links {
+    display: flex !important;
+    left: auto !important;
+    right: 0 !important;
     transform: translateX(100%) !important;
-    right: 0;
-    left: auto;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    visibility: hidden;
+    pointer-events: none;
   }
   .navbar-links.active {
     transform: translateX(0) !important;
+    visibility: visible;
+    pointer-events: all;
   }
 }
 
