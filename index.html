@@ -729,9 +729,20 @@
           e.preventDefault();
           const btn = e.target.querySelector('.cv2-form-btn');
           const msg = document.getElementById('cv2FormMsg');
+          const inputs = e.target.querySelectorAll('input, select, textarea');
+          const name    = inputs[0].value.trim();
+          const phone   = inputs[1].value.trim();
+          const service = inputs[2].value;
+          const message = inputs[3].value.trim() || service;
           btn.disabled = true;
           btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-          setTimeout(() => {
+          const base = (typeof API_BASE !== 'undefined') ? API_BASE : 'https://maxpool-production.up.railway.app';
+          fetch(`${base}/api/leads`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, phone, message: message || service, service })
+          })
+          .finally(() => {
             btn.innerHTML = '<i class="fa-solid fa-check"></i> Sent!';
             msg.style.display = 'block';
             msg.textContent = '✓ We received your inquiry and will contact you shortly.';
@@ -741,7 +752,7 @@
               btn.innerHTML = '<span>Send Inquiry</span> <i class="fa-solid fa-arrow-right"></i>';
               msg.style.display = 'none';
             }, 4000);
-          }, 1200);
+          });
         }
       </script>
 
