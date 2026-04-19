@@ -18,21 +18,29 @@ body {
 .navbar-inner        { flex-direction: row-reverse; }
 .navbar-links        { flex-direction: row-reverse; }
 
-/* Mobile navbar — override main.css display:none, use visibility instead for RTL slide from right */
+/* Mobile navbar — full screen RTL from right */
 @media (max-width: 767px) {
   .navbar-links {
     display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
     left: auto !important;
     right: 0 !important;
     transform: translateX(100%) !important;
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
     visibility: hidden;
     pointer-events: none;
+    padding: 90px var(--space-6) var(--space-8) !important;
   }
   .navbar-links.active {
     transform: translateX(0) !important;
     visibility: visible;
     pointer-events: all;
+  }
+  .navbar-links a {
+    width: 100% !important;
+    text-align: right !important;
+    justify-content: flex-end !important;
   }
 }
 
