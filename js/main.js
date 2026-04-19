@@ -235,7 +235,10 @@ document.addEventListener('DOMContentLoaded', () => {
               th { background: #004b87; color: white; font-weight:bold; }
               tr:nth-child(even) { background-color: #f2f2f2; }
             </style></head>
-            <body onload="setTimeout(()=>window.print(), 500)">
+            <body>
+              <div style="text-align:right; margin-bottom:20px;">
+                <button onclick="window.print()" style="background:#004b87; color:white; border:none; padding:10px 24px; border-radius:8px; font-size:15px; font-weight:700; cursor:pointer;">🖨️ Print / Save PDF</button>
+              </div>
               <div class="header">
                 <div>
                   <h1 class="logo-text">MAX POOL</h1>
