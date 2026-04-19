@@ -354,8 +354,8 @@ document.addEventListener('DOMContentLoaded', () => {
               ? product.images[0]
               : product.images[0].startsWith('/uploads')
                 ? `${API_BASE}${product.images[0]}`
-                : `${BASE}${product.images[0].replace(/^\//, '')}`)
-          : (product.image ? `${BASE}${product.image.replace(/^\//, '')}` : `${BASE}assets/images/logo.png`);
+                : `/${product.images[0].replace(/^\//, '')}`)
+          : (product.image ? `/${product.image.replace(/^\//, '')}` : `/assets/images/logo.png`);
         const productBrandName = product.brandName || product.brand || '';
         const addLabel = isAr ? 'أضف للعرض' : 'Add to Quote';
         catalogGrid.innerHTML += `

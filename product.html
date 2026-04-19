@@ -71,8 +71,8 @@
 
           const productTitle = product.name || product.title || '';
           const productImage = (product.images && product.images[0])
-            ? (product.images[0].startsWith('/uploads') ? `${API_BASE}${product.images[0]}` : product.images[0].startsWith('http') ? product.images[0] : product.images[0].replace(/^\//, ''))
-            : (product.image || product.imageUrl || 'assets/images/logo.png');
+            ? (product.images[0].startsWith('/uploads') ? `${API_BASE}${product.images[0]}` : product.images[0].startsWith('http') ? product.images[0] : `/${product.images[0].replace(/^\//, '')}`)
+            : (product.image ? `/${product.image.replace(/^\//, '')}` : product.imageUrl || '/assets/images/logo.png');
           const productId_   = product._id || product.id;
 
           document.title = productTitle + " — Max Pool";
