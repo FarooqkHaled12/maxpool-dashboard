@@ -24,16 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (s.facebook_url) {
         document.querySelectorAll('a[href*="facebook.com"]').forEach(a => { a.href = s.facebook_url; });
       }
-      // Hero title & subtitle
+      // Hero title & subtitle — only update if API text is longer than hardcoded
       const heroTitle = document.querySelector('.hero-title');
       const heroSub   = document.querySelector('.hero-subtitle');
       if (heroTitle) {
         const txt = _isAr ? s.hero_title_ar : s.hero_title_en;
-        if (txt) heroTitle.innerHTML = txt;
+        if (txt && txt.length > 5) heroTitle.innerHTML = txt;
       }
       if (heroSub) {
         const txt = _isAr ? s.hero_sub_ar : s.hero_sub_en;
-        if (txt) heroSub.textContent = txt;
+        const current = heroSub.textContent || '';
+        if (txt && txt.length >= current.length) heroSub.textContent = txt;
       }
     })
     .catch(() => {}); // Fail silently — hardcoded fallbacks remain
