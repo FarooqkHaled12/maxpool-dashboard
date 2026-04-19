@@ -1,0 +1,34 @@
+﻿/* Visibility Utilities */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* State Components */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-12);
+  color: var(--color-neutral-700);
+}
+.loading-state__spinner {
+  width: 40px; height: 40px;
+  border: 3px solid var(--color-neutral-200);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+.empty-state,
+.error-state {
+  padding: var(--space-12);
+  text-align: center;
+  color: var(--color-neutral-700);
+}
+.error-state { color: var(--color-error); }

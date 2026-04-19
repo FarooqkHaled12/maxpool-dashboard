@@ -1,0 +1,18 @@
+# Max Pool Website — Git Ignore
+node_modules/
+backend/
+dashboard-guide/
+admin-dashboard/
+data/
+docs/
+.kiro/
+assets/images/max pool/
+assets/images/company logo/
+assets/images/products/
+assets/images/كيماويات/
+assets/images/deploy-ready/
+assets/images/brave_screenshot_localhost.png
+assets/images/Gemini_Generated_Image_*.png
+assets/images/1776163*.png
+*.log
+.DS_Store

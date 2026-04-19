@@ -1,0 +1,91 @@
+/* ============================================================
+   TYPOGRAPHY — Max Pool Corporate B2B Design System v2
+   Inter only. Weight creates hierarchy, not font variation.
+   ============================================================ */
+
+html { font-size: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Headings — Bold, tight, Inter ────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+}
+
+h1 { font-size: clamp(var(--font-size-4xl), 5vw,   var(--font-size-5xl)); }
+h2 { font-size: clamp(var(--font-size-3xl), 3.5vw, var(--font-size-4xl)); }
+h3 { font-size: clamp(var(--font-size-2xl), 2.5vw, var(--font-size-3xl)); }
+h4 { font-size: var(--font-size-xl);   font-weight: var(--font-weight-semibold); }
+h5 { font-size: var(--font-size-lg);   font-weight: var(--font-weight-semibold); }
+h6 { font-size: var(--font-size-base); font-weight: var(--font-weight-semibold); }
+
+/* ── Body ──────────────────────────────────────────────── */
+
+p {
+  margin-bottom: var(--space-4);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+p:last-child { margin-bottom: 0; }
+
+.lead {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-weight-regular);
+}
+
+/* ── Links ─────────────────────────────────────────────── */
+
+a { color: var(--color-text-accent); transition: color var(--transition-base); }
+a:hover { color: var(--color-accent-light); }
+
+/* ── Eyebrow label ─────────────────────────────────────── */
+
+.eyebrow {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+  margin-bottom: var(--space-3);
+}
+
+/* ── Utilities ─────────────────────────────────────────── */
+
+.text-accent    { color: var(--color-text-accent); }
+.text-muted     { color: var(--color-text-muted); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-center    { text-align: center; }
+.text-serif     { font-family: var(--font-sans); }
+.text-gold      { color: var(--color-text-accent); }
+
+strong, b { font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+em, i     { font-style: italic; }
+small     { font-size: var(--font-size-sm); color: var(--color-text-muted); }
+
+.gold-rule {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: var(--space-5) auto;
+  border-radius: var(--radius-full);
+  opacity: 0.6;
+}
+.gold-rule--left { margin-left: 0; }

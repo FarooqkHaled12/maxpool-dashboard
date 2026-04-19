@@ -1,0 +1,36 @@
+/* Navbar */
+.navbar { 
+  position: fixed; top: 0; left: 0; width: 100%;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--color-border);
+  z-index: var(--z-overlay); padding: var(--space-4) 0;
+}
+.navbar-inner { display: flex; justify-content: space-between; align-items: center; }
+.navbar-brand { font-family: var(--font-sans); color: var(--color-text-primary); font-size: var(--font-size-2xl); font-weight: var(--font-weight-extrabold); text-decoration: none; flex-shrink: 0; }
+.navbar-links { display: flex; gap: var(--space-8); align-items: center; }
+.navbar-links a { color: var(--color-text-secondary); font-weight: var(--font-weight-semibold); text-decoration: none; transition: var(--transition-fast); white-space: nowrap; }
+.navbar-links a:hover, .navbar-links a.active { color: var(--color-accent); }
+.navbar-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; flex-shrink: 0; }
+.navbar-toggle span { display: block; width: 24px; height: 3px; background: var(--color-text-primary); border-radius: 2px; transition: var(--transition-base); transform-origin: center; }
+
+/* Hamburger → X animation */
+.navbar-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.navbar-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.navbar-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+@media (max-width: 767px) {
+  .navbar-links {
+    display: none;
+    position: absolute; top: 100%; left: 0; width: 100%;
+    background: var(--color-bg-primary);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-4) var(--space-4) var(--space-6);
+    gap: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .navbar-links.active { display: flex; }
+  .navbar-links a { width: 100%; padding: var(--space-3) var(--space-2); font-size: var(--font-size-lg); border-bottom: 1px solid var(--color-divider); }
+  .navbar-links a:last-child { border-bottom: none; }
+  .navbar-toggle { display: flex; }
+}

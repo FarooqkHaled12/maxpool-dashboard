@@ -1,0 +1,123 @@
+/* ============================================================
+   DESIGN TOKENS — Max Pool Dynamic Aquatic Theme
+   ============================================================ */
+
+:root {
+  /* ── COLOR SYSTEM: Swimming Pool Theme ──────────────── */
+  /* Backgrounds */
+  --color-bg-primary:    #ffffff;
+  --color-bg-secondary:  #f4faff; /* Very light cyan/blue */
+  --color-bg-card:       #ffffff;
+  --color-bg-elevated:   #e0f2fe;
+  --color-bg-overlay:    rgba(255, 255, 255, 0.85);
+  --color-bg-dark:       #001d3d;
+
+  /* Borders */
+  --color-border:        #bae6fd;
+  --color-border-strong: #7dd3fc;
+  --color-divider:       #e0f2fe;
+
+  /* Accents - Aquatic Blues & Teals */
+  --color-accent:        #0077b6; /* Deep ocean */
+  --color-accent-hover:  #023e8a;
+  --color-accent-light:  #00b4d8; /* Pool water cyan */
+  --color-accent-subtle: rgba(0, 180, 216, 0.15);
+  --color-accent-border: rgba(0, 180, 216, 0.3);
+  
+  /* Gradients */
+  --gradient-primary:    linear-gradient(135deg, #0077b6, #00b4d8);
+  --gradient-glow:       linear-gradient(135deg, rgba(0, 180, 216, 0.4), rgba(144, 224, 239, 0.4));
+  --gradient-surface:    linear-gradient(180deg, #f4faff 0%, #ffffff 100%);
+
+  /* Text */
+  --color-text-primary:  #001d3d; /* Darkest blue for readability */
+  --color-text-secondary:#003566; /* Medium blue */
+  --color-text-muted:    #64748B;
+  --color-text-inverse:  #ffffff;
+  --color-text-accent:   #00b4d8;
+
+  /* ── TYPOGRAPHY ─────────────────────────────────────────── */
+  --font-sans:           'Outfit', system-ui, -apple-system, sans-serif;
+  --font-family-base:    var(--font-sans);
+
+  /* Type scale */
+  --font-size-xs:        0.75rem;    
+  --font-size-sm:        0.875rem;   
+  --font-size-base:      1rem;       
+  --font-size-lg:        1.125rem;   
+  --font-size-xl:        1.25rem;    
+  --font-size-2xl:       1.5rem;     
+  --font-size-3xl:       2.5rem;       
+  --font-size-4xl:       3.5rem;     
+  --font-size-5xl:       4.5rem;    
+
+  /* Weights */
+  --font-weight-light:   300;
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-semibold:600;
+  --font-weight-bold:    700;
+  --font-weight-extrabold:800;
+
+  /* Line heights */
+  --line-height-tight:   1.1;
+  --line-height-snug:    1.3;
+  --line-height-base:    1.6;
+  --line-height-relaxed: 1.8;
+
+  /* ── SPACING ────────────────────────────────────────────── */
+  --space-1:   0.25rem;   
+  --space-2:   0.5rem;    
+  --space-3:   0.75rem;   
+  --space-4:   1rem;      
+  --space-5:   1.25rem;   
+  --space-6:   1.5rem;    
+  --space-8:   2rem;      
+  --space-10:  2.5rem;    
+  --space-12:  3rem;      
+  --space-16:  4rem;      
+  --space-20:  5rem;      
+  --space-24:  6rem;      
+  --space-32:  8rem;      
+
+  --section-padding-y:   var(--space-24);
+
+  /* ── BORDER RADIUS ──────────────────────────────────────── */
+  --radius-sm:   8px;    
+  --radius-md:   16px;    
+  --radius-lg:   24px;   
+  --radius-xl:   32px;
+  --radius-full: 9999px; 
+
+  /* ── SHADOWS ────────────────────────────────────────────── */
+  --shadow-sm:     0 2px 8px rgba(0, 119, 182, 0.08);
+  --shadow-md:     0 8px 24px rgba(0, 119, 182, 0.12);
+  --shadow-lg:     0 16px 40px rgba(0, 119, 182, 0.16);
+  --shadow-card:   0 10px 30px rgba(0, 29, 61, 0.05);
+  --shadow-hover:  0 20px 40px rgba(0, 180, 216, 0.2);
+
+  /* ── TRANSITIONS ────────────────────────────────────────── */
+  --transition-fast:    150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base:    300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:    500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Z-INDEX ───────────────────────────────────────────── */
+  --z-base:    1;
+  --z-raised:  10;
+  --z-overlay: 100;
+
+  /* ── LAYOUT ────────────────────────────────────────────── */
+  --container-max:    1280px;
+  --container-pad:    var(--space-8);
+  --container-pad-sm: var(--space-4);
+}
+
+/* ── Mobile overrides ───────────────────────────────────── */
+@media (max-width: 767px) {
+  :root {
+    --section-padding-y: var(--space-16);
+    --font-size-5xl:     3.5rem;
+    --font-size-4xl:     2.5rem;
+    --font-size-3xl:     2rem;
+  }
+}

@@ -1,0 +1,67 @@
+/* Hero Section */
+.hero {
+  position: relative;
+  padding: 160px 0 160px;
+  background: var(--color-bg-secondary);
+  overflow: hidden;
+  text-align: center;
+}
+.hero-bg-dynamic {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--gradient-primary);
+  opacity: 0.05;
+  z-index: 0;
+}
+.hero-content {
+  position: relative;
+  z-index: var(--z-raised);
+  max-width: 800px;
+  margin: 0 auto;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-bg-card);
+  color: var(--color-accent);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+.hero-title {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-6);
+  color: var(--color-text-primary);
+}
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-subtitle {
+  font-size: var(--font-size-xl);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-8);
+  max-width: 650px;
+  margin-left: auto; margin-right: auto;
+}
+.hero-actions { display: flex; gap: var(--space-4); justify-content: center; align-items: center; flex-wrap: wrap; }
+.hero-wave {
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  overflow: hidden; line-height: 0; z-index: var(--z-base);
+}
+.hero-wave svg { position: relative; display: block; width: calc(100% + 1.3px); height: 80px; }
+.hero-wave .shape-fill { fill: var(--color-bg-primary); }
+
+@media (max-width: 767px) {
+  .hero { padding: 100px 0 80px; }
+  .hero-title { font-size: clamp(var(--font-size-3xl), 8vw, var(--font-size-4xl)); }
+  .hero-subtitle { font-size: var(--font-size-base); }
+  .hero-actions { flex-direction: column; align-items: stretch; padding: 0 var(--space-4); }
+  .hero-actions .btn { width: 100%; justify-content: center; }
+}

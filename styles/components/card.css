@@ -1,0 +1,114 @@
+/* ============================================================
+   CARD — Max Pool Design System
+   ============================================================ */
+
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.product-card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-6px);
+}
+
+.card-image-wrap {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg-elevated);
+  height: 220px;
+}
+
+.card-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.product-card:hover .card-image-wrap img { transform: scale(1.05); }
+
+.card-content {
+  flex: 1;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2);
+  line-height: var(--line-height-snug);
+}
+
+.card-content p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0 0 var(--space-4);
+  line-height: var(--line-height-base);
+  flex: 1;
+}
+
+.card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.92);
+  color: var(--color-accent);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  z-index: var(--z-raised);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,29,61,0.3), transparent);
+  pointer-events: none;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-6);
+}
+
+.catalog-grid > * { min-width: 0; }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+  gap: var(--space-6);
+}
+
+.product-grid > * { min-width: 0; }
+
+@media (max-width: 767px) {
+  .catalog-grid,
+  .product-grid { 
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+  }
+  .card-image-wrap { height: 160px; }
+  .card-content { padding: var(--space-3); }
+}

@@ -1,0 +1,38 @@
+/* Button Component */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-base);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.btn-sm  { padding: var(--space-2) var(--space-4); font-size: var(--font-size-sm); }
+.btn-lg  { padding: var(--space-4) var(--space-8); font-size: var(--font-size-lg); }
+.btn-primary { background: var(--color-accent); color: #fff; box-shadow: var(--shadow-md); }
+.btn-primary:hover { background: var(--color-accent-hover); box-shadow: var(--shadow-lg); transform: translateY(-2px); color: #fff; }
+.btn-outline { background: transparent; color: var(--color-accent); border: 2px solid var(--color-accent); }
+.btn-outline:hover { background: var(--color-bg-secondary); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+.shine-effect::after {
+  content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg); transition: 0.5s;
+}
+.btn:hover.shine-effect::after { left: 150%; }
+.dynamic-hover { transition: transform 0.4s ease; }
+.dynamic-hover:hover { transform: translateY(-4px); }
+
+@media (max-width: 767px) {
+  .btn-lg { padding: var(--space-3) var(--space-6); font-size: var(--font-size-base); }
+}

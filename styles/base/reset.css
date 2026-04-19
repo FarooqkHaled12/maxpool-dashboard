@@ -1,0 +1,11 @@
+/* Base Reset */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow-x: hidden; }
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }

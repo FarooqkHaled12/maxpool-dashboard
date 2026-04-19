@@ -1,0 +1,9 @@
+﻿User-agent: *
+Allow: /
+
+Sitemap: https://www.max-pool-eg.com/sitemap.xml
+
+Disallow: /admin-dashboard/
+Disallow: /backend/
+Disallow: /node_modules/
+Disallow: /data/

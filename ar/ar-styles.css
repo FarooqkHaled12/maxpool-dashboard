@@ -1,0 +1,80 @@
+/* Arabic Version Styles — Max Pool */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
+body { font-family: 'Cairo', 'Segoe UI', sans-serif; }
+
+/* Hide auto-generated lang toggle — Arabic pages have static EN link in navbar */
+#langToggleBtn { display: none !important; }
+
+/* ── RTL Layout Overrides ── */
+.navbar-inner        { flex-direction: row-reverse; }
+.navbar-links        { flex-direction: row-reverse; }
+.hero-content        { text-align: right; }
+.hero-actions        { justify-content: flex-start; flex-direction: row-reverse; }
+.hero-badge          { direction: rtl; }
+.section-header      { text-align: right; }
+.footer-inner        { flex-direction: row-reverse; }
+.footer-links, .footer-contact { text-align: right; }
+.contact-grid        { direction: rtl; }
+.contact-info-card, .contact-form label { text-align: right; }
+.info-item           { flex-direction: row-reverse; text-align: right; }
+.about-grid          { flex-direction: row-reverse; }
+.about-text, .vm-card { text-align: right; }
+.vm-grid             { flex-direction: row-reverse; }
+.catalog-layout      { flex-direction: row-reverse; }
+.catalog-sidebar, .card-content { text-align: right; }
+.sidebar-title       { flex-direction: row-reverse; }
+.catalog-top-bar     { flex-direction: row-reverse; }
+.feature-card        { text-align: right; }
+.feature-icon        { margin-left: auto; margin-right: 0; }
+.cta-content-wrapper { text-align: center; }
+.page-header         { text-align: right; }
+
+/* About page RTL */
+.ab-story-left       { padding-right: 0; padding-left: 80px; }
+.ab-story-checks li  { flex-direction: row-reverse; }
+.ab-hero-eyebrow     { flex-direction: row-reverse; }
+.ab-vals-hdr-tag     { flex-direction: row-reverse; }
+.ab-tl-hdr-tag       { flex-direction: row-reverse; }
+.ab-hero-inner       { text-align: right; }
+.ab-hero-actions     { flex-direction: row-reverse; }
+.ab-hero-nums        { left: 0; right: auto; text-align: left; }
+.ab-hero-num         { border-left: none; border-right: 1px solid rgba(255,255,255,0.06); }
+
+/* Services page RTL */
+.srv-hero-inner      { direction: rtl; }
+.srv-row             { direction: rtl; }
+.srv-txt             { text-align: right; }
+.srv-checks li       { flex-direction: row-reverse; }
+.srv-timeline        { direction: rtl; }
+.srv-step            { text-align: right; }
+.srv-clients-grid    { direction: rtl; }
+.srv-client          { text-align: right; }
+.srv-vis-lbl         { left: auto; right: 20px; }
+
+/* Contact page RTL */
+.loc-grid            { direction: rtl; }
+.loc-card            { flex-direction: row-reverse; text-align: right; }
+.loc-card-body       { text-align: right; }
+
+/* Card content RTL */
+.card-content        { text-align: right; }
+.card-content h3, .card-content p { text-align: right; }
+
+/* Cart modal RTL */
+#cartModal div       { direction: rtl; }
+
+/* Flip arrows in RTL */
+[dir="rtl"] .fa-arrow-right::before  { content: "\f060"; }
+[dir="rtl"] .fa-chevron-right::before { content: "\f053"; }
+[dir="rtl"] .fa-chevron-left::before  { content: "\f054"; }
+
+/* Pagination RTL */
+[dir="rtl"] #catalogPagination { direction: rtl; }
+
+/* Footer links */
+.footer-links a { display: block; }
+
+@media (max-width: 900px) {
+  .ab-story-left { padding-left: 0; }
+}

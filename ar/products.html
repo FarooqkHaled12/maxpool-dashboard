@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../assets/images/logo.png">
+  <title>كتالوج معدات حمامات السباحة — طلمبات، فلاتر، كيماويات | ماكس بول مصر</title>
+  <meta name="description" content="تصفح كتالوج معدات حمامات السباحة الكامل من ماكس بول مصر. طلمبات، فلاتر رمل، كيماويات، إضاءة LED وإكسسوارات. أفضل الأسعار في القاهرة.">
+  <link rel="canonical" href="https://www.max-pool-eg.com/ar/products.html">
+  <link rel="alternate" hreflang="ar" href="https://www.max-pool-eg.com/ar/products.html">
+  <link rel="alternate" hreflang="en" href="https://www.max-pool-eg.com/products.html">
+  <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="ar-styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="index.html" class="navbar-brand" style="display:flex;align-items:center;"><img src="../assets/images/logo.png" alt="شعار ماكس بول" style="height:48px;object-fit:contain;"></a>
+      <div class="navbar-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="products.html" class="active">المعدات</a>
+        <a href="services.html">الخدمات</a>
+        <a href="about.html">من نحن</a>
+        <a href="contact.html">تواصل معنا</a>
+        <a href="../products.html" style="font-size:12px;opacity:0.7;border:1px solid currentColor;padding:3px 8px;border-radius:12px;">EN</a>
+      </div>
+      <button class="navbar-toggle" aria-label="فتح القائمة"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <header class="about-hero prod-hero">
+    <div class="container">
+      <h1 class="hero-title text-gradient">كتالوج المعدات</h1>
+      <p class="hero-subtitle">مضخات صناعية، ترشيح متقدم، إضاءة وإكسسوارات.</p>
+    </div>
+  </header>
+
+  <section class="catalog-page">
+    <div class="container catalog-layout">
+      <aside class="catalog-sidebar">
+        <div class="sidebar-block">
+          <h3 class="sidebar-title"><i class="fa-solid fa-list"></i> الأصناف</h3>
+          <ul class="sidebar-list filter-list" id="categoryFilters">
+            <li><button class="filter-btn active" data-filter="all">جميع الأصناف</button></li>
+            <li><button class="filter-btn" data-filter="cat-pumps">طلمبات حمامات السباحة</button></li>
+            <li><button class="filter-btn" data-filter="cat-filters">فلاتر حمامات السباحة</button></li>
+            <li><button class="filter-btn" data-filter="cat-lights">إضاءات حمامات السباحة</button></li>
+            <li><button class="filter-btn" data-filter="cat-fittings">اكسسوارات حمامات السباحة</button></li>
+            <li><button class="filter-btn" data-filter="cat-chemicals">كيماويات حمامات السباحة</button></li>
+            <li><button class="filter-btn" data-filter="cat-cleaners">أطقم الصيانة</button></li>
+            <li><button class="filter-btn" data-filter="cat-testing">اختبار مياه حمام السباحة</button></li>
+            <li><button class="filter-btn" data-filter="cat-jacuzzi">جاكوزي</button></li>
+            <li><button class="filter-btn" data-filter="cat-heaters">سخانات حمامات السباحة</button></li>
+            <li><button class="filter-btn" data-filter="cat-ladders">سلم حمام السباحة</button></li>
+            <li><button class="filter-btn" data-filter="cat-waterfalls">شلالات</button></li>
+            <li><button class="filter-btn" data-filter="cat-spareparts">قطع غيار</button></li>
+            <li><button class="filter-btn" data-filter="cat-controls">وحدات التحكم</button></li>
+            <li><button class="filter-btn" data-filter="cat-pipeless">وحدة فلترة جاهزة</button></li>
+            <li><button class="filter-btn" data-filter="cat-transformers">محول كهرباء</button></li>
+          </ul>
+        </div>
+        <div class="sidebar-block">
+          <h3 class="sidebar-title"><i class="fa-solid fa-tags"></i> الشركات المصنعة</h3>
+          <ul class="sidebar-list filter-list" id="brandFilters">
+            <li><button class="filter-btn active" data-filter="all">جميع الماركات</button></li>
+            <li><button class="filter-btn" data-filter=".brand-astral">AstralPool</button></li>
+            <li><button class="filter-btn" data-filter=".brand-hayward">Hayward</button></li>
+            <li><button class="filter-btn" data-filter=".brand-aqua">Aqua</button></li>
+            <li><button class="filter-btn" data-filter=".brand-maxpool">Max Pool</button></li>
+          </ul>
+        </div>
+      </aside>
+      <main class="catalog-content">
+        <div class="catalog-top-bar">
+          <p>عرض المنتجات المطابقة...</p>
+          <div class="catalog-search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input id="catalogSearch" type="text" placeholder="ابحث عن منتج..." class="catalog-search-input">
+          </div>
+        </div>
+        <div class="no-results" id="no-results-msg">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <h3>لا توجد منتجات تطابق اختيارك</h3>
+          <p>يرجى مسح الفلاتر لعرض جميع المنتجات.</p>
+        </div>
+        <div class="grid catalog-grid" id="catalogGrid">
+          <div id="loader" class="catalog-loader"><i class="fa-solid fa-spinner fa-spin"></i> جارٍ تحميل الكتالوج...</div>
+        </div>
+      </main>
+    </div>
+  </section>
+
+  <section class="seo-links" aria-label="روابط التنقل"><div class="container"><div class="seo-links-inner">
+    <div class="seo-links-col"><h4>معدات حمامات السباحة</h4><ul><li><a href="products.html?category=cat-pumps">طلمبات حمامات السباحة</a></li><li><a href="products.html?category=cat-filters">فلاتر حمامات السباحة</a></li><li><a href="products.html?category=cat-chemicals">كيماويات حمامات السباحة</a></li><li><a href="products.html?category=cat-lights">إضاءة حمامات السباحة</a></li><li><a href="products.html">كتالوج معدات المسابح الكامل</a></li></ul></div>
+    <div class="seo-links-col"><h4>خدمات حمامات السباحة</h4><ul><li><a href="services.html">صيانة حمامات السباحة</a></li><li><a href="services.html">تركيب حمامات السباحة</a></li><li><a href="services.html">معالجة مياه المسابح</a></li><li><a href="services.html">إنشاء حمامات السباحة</a></li><li><a href="contact.html">طلب عرض سعر</a></li></ul></div>
+    <div class="seo-links-col"><h4>من نحن</h4><ul><li><a href="about.html">عن ماكس بول مصر</a></li><li><a href="contact.html">تواصل معنا</a></li><li><a href="index.html">الرئيسية</a></li></ul></div>
+    <div class="seo-links-col"><h4>النسخة الإنجليزية</h4><ul><li><a href="../products.html">Pool Equipment Catalog</a></li><li><a href="../services.html">Pool Services Egypt</a></li><li><a href="../about.html">About Max Pool Egypt</a></li><li><a href="../contact.html">Contact Us</a></li></ul></div>
+  </div></div></section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand"><img src="../assets/images/logo.png" alt="شعار ماكس بول" style="height:60px;margin-bottom:16px;object-fit:contain;"><p>بنية تحتية متميزة للمسابح، معدات ومواد كيميائية وفق أعلى المعايير الأوروبية.</p></div>
+      <div class="footer-links"><h4>شركتنا</h4><a href="index.html">الرئيسية</a><a href="products.html">كتالوج المعدات</a><a href="services.html">الخدمات</a><a href="about.html">من نحن</a><a href="contact.html">تواصل معنا</a></div>
+      <div class="footer-contact"><h4>معلومات التواصل</h4><p><i class="fa-solid fa-phone"></i> 0100 620 5650</p><div class="social-links"><a href="https://www.facebook.com/maxpoool" target="_blank"><i class="fa-brands fa-facebook"></i> @maxpool</a></div></div>
+    </div>
+    <div class="container footer-bottom"><p>&copy; 2026 ماكس بول. جميع الحقوق محفوظة.</p></div>
+  </footer>
+  <script src="../js/config.js"></script>
+  <script>window.BASE_PATH = '../';</script>
+  <script src="../js/main.js"></script>
+</body>
+</html>

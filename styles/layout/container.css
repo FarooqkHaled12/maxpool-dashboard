@@ -1,0 +1,15 @@
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-pad-sm);
+  padding-right: var(--container-pad-sm);
+}
+@media (min-width: 768px) {
+  .container {
+    padding-left: var(--container-pad);
+    padding-right: var(--container-pad);
+  }
+}
