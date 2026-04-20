@@ -115,8 +115,8 @@
     "category": "cat-filters",
     "brand": "brand-astral",
     "brandName": "AstralPool",
-    "images": ["assets/images/products/معدات استرال/11.jpg"],
-    "image": "assets/images/products/معدات استرال/11.jpg",
+    "images": ["assets/images/astral-equipment/astral-filter-11.jpg"],
+    "image": "assets/images/astral-equipment/astral-filter-11.jpg",
     "featured": false
   },
   {
@@ -127,8 +127,8 @@
     "category": "cat-filters",
     "brand": "brand-astral",
     "brandName": "AstralPool",
-    "images": ["assets/images/products/معدات استرال/16.jpg"],
-    "image": "assets/images/products/معدات استرال/16.jpg",
+    "images": ["assets/images/astral-equipment/astral-filter-16.jpg"],
+    "image": "assets/images/astral-equipment/astral-filter-16.jpg",
     "featured": false
   },
   {
@@ -139,8 +139,8 @@
     "category": "cat-filters",
     "brand": "brand-astral",
     "brandName": "AstralPool",
-    "images": ["assets/images/products/معدات استرال/unnamed (1).jpg"],
-    "image": "assets/images/products/معدات استرال/unnamed (1).jpg",
+    "images": ["assets/images/astral-equipment/astral-system.jpg"],
+    "image": "assets/images/astral-equipment/astral-system.jpg",
     "featured": false
   },
   {
@@ -151,8 +151,8 @@
     "category": "cat-filters",
     "brand": "brand-astral",
     "brandName": "AstralPool",
-    "images": ["assets/images/products/معدات استرال/unnamed.png"],
-    "image": "assets/images/products/معدات استرال/unnamed.png",
+    "images": ["assets/images/astral-equipment/astral-package.png"],
+    "image": "assets/images/astral-equipment/astral-package.png",
     "featured": false
   },
   {
@@ -163,8 +163,8 @@
     "category": "cat-pumps",
     "brand": "brand-astral",
     "brandName": "AstralPool",
-    "images": ["assets/images/products/معدات استرال/unnamed.jpg"],
-    "image": "assets/images/products/معدات استرال/unnamed.jpg",
+    "images": ["assets/images/astral-equipment/astral-pump.jpg"],
+    "image": "assets/images/astral-equipment/astral-pump.jpg",
     "featured": false
   },
   {
@@ -343,8 +343,8 @@
     "category": "cat-fittings",
     "brand": "brand-astral",
     "brandName": "AstralPool",
-    "images": ["assets/images/products/اكسسوارات/unnamed.jpg"],
-    "image": "assets/images/products/اكسسوارات/unnamed.jpg",
+    "images": ["assets/images/accessories/accessory-a.jpg"],
+    "image": "assets/images/accessories/accessory-a.jpg",
     "featured": false
   },
   {
@@ -355,8 +355,8 @@
     "category": "cat-fittings",
     "brand": "brand-astral",
     "brandName": "AstralPool",
-    "images": ["assets/images/products/اكسسوارات/unnamed (1).jpg"],
-    "image": "assets/images/products/اكسسوارات/unnamed (1).jpg",
+    "images": ["assets/images/accessories/accessory-b.jpg"],
+    "image": "assets/images/accessories/accessory-b.jpg",
     "featured": false
   },
   {
@@ -367,8 +367,8 @@
     "category": "cat-fittings",
     "brand": "brand-astral",
     "brandName": "AstralPool",
-    "images": ["assets/images/products/اكسسوارات/unnamed (2).jpg"],
-    "image": "assets/images/products/اكسسوارات/unnamed (2).jpg",
+    "images": ["assets/images/accessories/accessory-c.jpg"],
+    "image": "assets/images/accessories/accessory-c.jpg",
     "featured": false
   },
   {
@@ -379,9 +379,10 @@
     "category": "cat-fittings",
     "brand": "brand-astral",
     "brandName": "AstralPool",
-    "images": ["assets/images/products/اكسسوارات/unnamed (3).jpg"],
-    "image": "assets/images/products/اكسسوارات/unnamed (3).jpg",
+    "images": ["assets/images/accessories/accessory-d.jpg"],
+    "image": "assets/images/accessories/accessory-d.jpg",
     "featured": false
   }
 ]
+
 
