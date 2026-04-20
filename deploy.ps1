@@ -20,7 +20,7 @@ $frontendChanges = git status --porcelain 2>&1
 if ($frontendChanges) {
     git add .
     git commit -m $message 2>&1 | Out-Null
-    $pushResult = git push origin main 2>&1
+    $pushResult = git push origin main:master 2>&1
     if ($LASTEXITCODE -eq 0) {
         Write-Host "  ✓ Frontend pushed → Netlify deploying..." -ForegroundColor Green
     } else {
