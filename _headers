@@ -1,0 +1,10 @@
+# Max Pool — Netlify Headers
+# Allow cross-origin access to all assets (needed by admin dashboard on different domain)
+
+/assets/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/images/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000, immutable
