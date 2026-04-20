@@ -8,7 +8,7 @@ docs/
 .kiro/
 assets/images/max pool/
 assets/images/company logo/
-assets/images/products/
+# assets/images/products/ — now tracked in git (product images needed on Netlify)
 assets/images/كيماويات/
 assets/images/deploy-ready/
 assets/images/brave_screenshot_localhost.png
