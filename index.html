@@ -762,9 +762,9 @@
   <script>
     // ── Equipment Portfolio Filtering ──────────────────────────────────────
     (function() {
-      var base = (typeof API_BASE !== 'undefined') ? API_BASE : 'http://localhost:5001';
+      var base = (typeof API_BASE !== 'undefined') ? API_BASE : 'https://maxpool-production.up.railway.app';
       var grid = document.getElementById('catalogGrid');
-      var activeCat = 'all';
+      var allProducts = [];
 
       function renderCards(products) {
         if (!grid) return;
@@ -781,7 +781,7 @@
           var cat   = (p.category || '').toLowerCase();
           return '<div class="cv2-card" data-cat="' + cat + '" onclick="location.href=\'product.html?id=' + id + '\'">'
             + '<div class="cv2-card-img-wrap">'
-            + (img ? '<img src="' + img + '" alt="' + title + '" loading="lazy">' : '<i class="fa-solid fa-box cv2-card-icon"></i>')
+            + (img ? '<img src="' + img + '" alt="' + title + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' : '<i class="fa-solid fa-box cv2-card-icon"></i>')
             + (brand ? '<div class="cv2-card-badge">' + brand + '</div>' : '')
             + '</div>'
             + '<div class="cv2-card-body">'
@@ -792,30 +792,31 @@
         }).join('');
       }
 
-      function loadProducts(cat) {
-        activeCat = cat;
-        var url = base + '/api/products?limit=9';
-        if (cat !== 'all') url += '&category=' + cat;
-        fetch(url)
-          .then(function(r) { return r.json(); })
-          .then(function(data) {
-            var products = Array.isArray(data) ? data : (data.products || data.data || []);
-            renderCards(products);
-          })
-          .catch(function() {});
+      function filterCards(cat) {
+        if (!allProducts.length) return;
+        var filtered = cat === 'all' ? allProducts : allProducts.filter(function(p) {
+          return (p.category || '').toLowerCase() === cat;
+        });
+        renderCards(filtered.length ? filtered : allProducts);
       }
 
-      // Tab click handlers — fetch from server with category filter
+      // Load all products once, then filter client-side
+      fetch(base + '/api/products?limit=50')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          allProducts = Array.isArray(data) ? data : (data.products || data.data || []);
+          renderCards(allProducts);
+        })
+        .catch(function() {});
+
+      // Tab click handlers — filter client-side
       document.querySelectorAll('.cv2-tab').forEach(function(tab) {
         tab.addEventListener('click', function() {
           document.querySelectorAll('.cv2-tab').forEach(function(t) { t.classList.remove('active'); });
           tab.classList.add('active');
-          loadProducts(tab.dataset.cat);
+          filterCards(tab.dataset.cat);
         });
       });
-
-      // Initial load
-      loadProducts('all');
     })();
   </script>
 
