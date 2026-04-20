@@ -78,8 +78,9 @@ export default function Products() {
                   if (!raw) return 'https://placehold.co/60x60?text=No+Image';
                   if (raw.startsWith('http')) return raw;
                   if (raw.startsWith('/uploads')) return `${import.meta.env.VITE_API_URL || 'https://maxpool-production.up.railway.app'}${raw}`;
-                  // assets/images/... → served from Netlify frontend
-                  return `https://max-pool-eg.com/${raw.replace(/^\//, '')}`;
+                  // assets/images/... → served from the main frontend site
+                  const siteUrl = import.meta.env.VITE_SITE_URL || 'https://max-pool-eg.com';
+                  return `${siteUrl}/${raw.replace(/^\//, '')}`;
                 })()} alt={p.name} className="table-img" /></td>
                 <td><strong>{p.name}</strong><br /><small style={{color:'#888'}}>{p.description?.slice(0, 60)}...</small></td>
                 <td><span className="badge">{p.category}</span></td>
