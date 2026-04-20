@@ -16,7 +16,7 @@ export default function Products() {
   const fileRef = useRef();
 
   const load = () => {
-    const params = {};
+    const params = { limit: 100 };
     if (search)    params.search   = search;
     if (catFilter) params.category = catFilter;
     getProducts(params).then(r => setProducts(r.products || []));
