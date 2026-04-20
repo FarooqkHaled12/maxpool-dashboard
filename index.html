@@ -774,7 +774,9 @@
           var title = p.name || p.title || '';
           var imgRaw = Array.isArray(p.images) ? p.images[0] : (typeof p.images === 'string' ? p.images : '');
           var img   = imgRaw
-            ? (imgRaw.startsWith('http') ? imgRaw : '/' + imgRaw.replace(/^\//, ''))
+            ? (imgRaw.startsWith('http') ? imgRaw
+              : (imgRaw.startsWith('/uploads') || imgRaw.startsWith('/images')) ? (typeof API_BASE !== 'undefined' ? API_BASE : 'https://maxpool-production.up.railway.app') + imgRaw
+              : '/' + imgRaw.replace(/^\//, ''))
             : '';
           var brand = p.brandName || p.brand || '';
           var desc  = (p.description || '').slice(0, 90) + ((p.description || '').length > 90 ? '...' : '');
