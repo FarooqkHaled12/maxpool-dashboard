@@ -353,13 +353,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const productId        = product._id || product.id;
         const productTitle     = product.name || product.title || '';
         const productDesc      = product.description || '';
-        const productImage     = (product.images && product.images[0])
-          ? (product.images[0].startsWith('http')
-              ? product.images[0]
-              : product.images[0].startsWith('/uploads')
-                ? `${API_BASE}${product.images[0]}`
-                : `/${product.images[0].replace(/^\//, '')}`)
-          : (product.image ? `/${product.image.replace(/^\//, '')}` : `/assets/images/logo.png`);
+        const productImage     = (() => {
+          const raw = Array.isArray(product.images) ? product.images[0] : (typeof product.images === 'string' ? product.images : null);
+          if (!raw) return product.image ? `/${product.image.replace(/^\//, '')}` : `/assets/images/logo.png`;
+          if (raw.startsWith('http')) return raw;
+          if (raw.startsWith('/uploads')) return `${API_BASE}${raw}`;
+          return `/${raw.replace(/^\//, '')}`;
+        })();
         const productBrandName = product.brandName || product.brand || '';
         const addLabel = isAr ? 'أضف للعرض' : 'Add to Quote';
         catalogGrid.innerHTML += `

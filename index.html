@@ -772,8 +772,9 @@
         grid.innerHTML = products.map(function(p) {
           var id    = p._id || p.id || '';
           var title = p.name || p.title || '';
-          var img   = (p.images && p.images[0])
-            ? (p.images[0].startsWith('http') ? p.images[0] : '/' + p.images[0].replace(/^\//, ''))
+          var imgRaw = Array.isArray(p.images) ? p.images[0] : (typeof p.images === 'string' ? p.images : '');
+          var img   = imgRaw
+            ? (imgRaw.startsWith('http') ? imgRaw : '/' + imgRaw.replace(/^\//, ''))
             : '';
           var brand = p.brandName || p.brand || '';
           var desc  = (p.description || '').slice(0, 90) + ((p.description || '').length > 90 ? '...' : '');
