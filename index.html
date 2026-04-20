@@ -764,7 +764,8 @@
   <script>
     // ── Equipment Portfolio Filtering ──────────────────────────────────────
     (function() {
-      var base = (typeof API_BASE !== 'undefined') ? API_BASE : 'https://maxpool-production.up.railway.app';
+      var RAILWAY = 'https://maxpool-production.up.railway.app';
+      var base = (typeof API_BASE !== 'undefined') ? API_BASE : RAILWAY;
       var grid = document.getElementById('catalogGrid');
       var allProducts = [];
 
@@ -777,7 +778,7 @@
           var imgRaw = Array.isArray(p.images) ? p.images[0] : (typeof p.images === 'string' ? p.images : '');
           var img   = imgRaw
             ? (imgRaw.startsWith('http') ? imgRaw
-              : (imgRaw.startsWith('/uploads') || imgRaw.startsWith('/images')) ? (typeof API_BASE !== 'undefined' ? API_BASE : 'https://maxpool-production.up.railway.app') + imgRaw
+              : (imgRaw.startsWith('/uploads') || imgRaw.startsWith('/images')) ? RAILWAY + imgRaw
               : '/' + imgRaw.replace(/^\//, ''))
             : '';
           var brand = p.brandName || p.brand || '';

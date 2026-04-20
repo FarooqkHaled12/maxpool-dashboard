@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const raw = Array.isArray(product.images) ? product.images[0] : (typeof product.images === 'string' ? product.images : null);
           if (!raw) return product.image ? `/${product.image.replace(/^\//, '')}` : `/assets/images/logo.png`;
           if (raw.startsWith('http')) return raw;
-          if (raw.startsWith('/uploads') || raw.startsWith('/images')) return `${API_BASE}${raw}`; // v2
+          if (raw.startsWith('/uploads') || raw.startsWith('/images')) return 'https://maxpool-production.up.railway.app' + raw;
           return `/${raw.replace(/^\//, '')}`;
         })();
         const productBrandName = product.brandName || product.brand || '';
