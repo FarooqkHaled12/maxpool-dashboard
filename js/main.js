@@ -1,9 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  // ── Central WhatsApp number — updated from API if available ──────────
+  window.WA_NUMBER = '201006205650';
+
   // ── Load site settings from API and apply dynamic content ──────────────
   const _base = (typeof API_BASE !== 'undefined') ? API_BASE : 'http://localhost:5001';
   const _isAr = window.location.pathname.includes('/ar/');
-  fetch(`${_base}/api/settings`)
+
+  const _settingsCtrl = new AbortController();
+  setTimeout(() => _settingsCtrl.abort(), 6000);
+
+  fetch(`${_base}/api/settings`, { signal: _settingsCtrl.signal })
     .then(r => r.json())
     .then(({ data: s }) => {
       if (!s) return;
@@ -14,8 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
           if (p.innerHTML.includes('fa-phone')) p.innerHTML = `<i class="fa-solid fa-phone"></i> ${s.phone}`;
         });
       }
-      // WhatsApp
+      // WhatsApp — update central number and all existing links
       if (s.whatsapp) {
+        window.WA_NUMBER = s.whatsapp;
         document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
           a.href = a.href.replace(/wa\.me\/\d+/, `wa.me/${s.whatsapp}`);
         });
@@ -81,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- FLOATING WHATSAPP WIDGET ---
   const waBtn = document.createElement('a');
-  waBtn.href = "https://wa.me/201006205650";
+  waBtn.href = `https://wa.me/${window.WA_NUMBER}`;
   waBtn.target = "_blank";
   waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
   waBtn.style.cssText = `
@@ -237,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const msg = isArLang
           ? `مرحباً ماكس بول,%0A%0Aأرغب في طلب عرض سعر للمنتجات التالية:%0A%0A${itemsList}%0A%0Aاسم العميل: ${encodeURIComponent(name)}%0Aالهاتف: ${encodeURIComponent(phone)}%0A%0Aيرجى التواصل معي بالأسعار والتوافر. شكراً.`
           : `Hello Max Pool,%0A%0AI would like to request a quotation for the following products:%0A%0A${itemsList}%0A%0AClient Name: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0A%0APlease contact me with pricing and availability. Thank you.`;
-        const waUrl = `https://wa.me/201006205650?text=${msg}`;
+        const waUrl = `https://wa.me/${window.WA_NUMBER}?text=${msg}`;
 
         const pdfWin = window.open('', '_blank');
         if (pdfWin) {
