@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.WA_NUMBER = '201006205650';
 
   // ── Load site settings from API and apply dynamic content ──────────────
-  const _base = (typeof API_BASE !== 'undefined') ? API_BASE : 'http://localhost:5001';
+  const _base = (typeof API_BASE !== 'undefined') ? API_BASE : 'https://maxpool-production.up.railway.app';
   const _isAr = window.location.pathname.includes('/ar/');
 
   const _settingsCtrl = new AbortController();

@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  const API   = (typeof API_BASE !== 'undefined') ? API_BASE : 'http://localhost:5001';
+  const API   = (typeof API_BASE !== 'undefined') ? API_BASE : 'https://maxpool-production.up.railway.app';
   const IS_AR = window.location.pathname.includes('/ar/');
 
   function getSlug() {

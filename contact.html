@@ -81,7 +81,7 @@
           <i class="fa-brands fa-facebook info-icon"></i>
           <div>
             <h4 data-i18n="contact.web.title">Follow Us</h4>
-            <p><a href="https://www.facebook.com/maxpool2019" target="_blank" rel="noopener" style="color:inherit;">@maxpool2019</a></p>
+            <p><a href="https://www.facebook.com/maxpoool" target="_blank" rel="noopener" style="color:inherit;">@maxpoool</a></p>
           </div>
         </div>
       </div>
@@ -282,7 +282,7 @@
             <div class="loc-card-body">
               <h4>Follow Us</h4>
               <div class="loc-social">
-                <a href="https://www.facebook.com/maxpool2019" target="_blank" rel="noopener">
+                <a href="https://www.facebook.com/maxpoool" target="_blank" rel="noopener">
                   <i class="fa-brands fa-facebook"></i> MAX POOL Cairo
                 </a>
                 <a href="https://www.google.com/maps/search/شركة+مكس+بول+لحمامات+السباحة" target="_blank" rel="noopener">
@@ -333,7 +333,6 @@
       </div>
       <div class="footer-links">
         <h4>Pool Blog</h4>
-        <a href="blog/cloudy-pool-water.html">Cloudy Pool Water</a>
         <a href="blog/green-pool-water.html">Green Pool Water</a>
         <a href="blog/how-to-clean-pool.html">How to Clean a Pool</a>
         <a href="blog/pool-pump-not-working.html">Pool Pump Not Working</a>
@@ -348,7 +347,7 @@
         <h4 data-i18n="footer.contact.title">Contact Information</h4>
         <p><i class="fa-solid fa-globe"></i> www.max-pool-eg.com</p>
         <p><i class="fa-solid fa-phone"></i> 0100 620 5650</p>
-        <div class="social-links"><a href="#"><i class="fa-brands fa-facebook"></i> @maxpool2019</a></div>
+        <div class="social-links"><a href="https://www.facebook.com/maxpoool" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> @maxpool2019</a></div>
       </div>
     </div>
     <div class="container footer-bottom"><p data-i18n="footer.copyright">&copy; 2026 Max Pool. All rights reserved.</p></div>
@@ -366,21 +365,47 @@
         const phone   = document.getElementById('phone').value.trim();
         const email   = document.getElementById('email').value.trim();
         const message = document.getElementById('inquiry').value.trim();
-        if (!name || !phone || !message) return;
+
+        // Validation
+        if (!name || name.length < 2) {
+          alert('Please enter your full name (at least 2 characters).');
+          return;
+        }
+        const phoneRegex = /^[\d\s\+\-\(\)]{7,15}$/;
+        if (!phone || !phoneRegex.test(phone)) {
+          alert('Please enter a valid phone number (digits only, 7–15 characters).');
+          return;
+        }
+        if (email) {
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(email)) {
+            alert('Please enter a valid email address (e.g. name@example.com).');
+            return;
+          }
+        }
+        if (!message || message.length < 10) {
+          alert('Please describe how we can help you (at least 10 characters).');
+          return;
+        }
+
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
 
         fetch(`${API_BASE}/api/messages`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, phone, email, message })
+          body: JSON.stringify({ name, phone, email, message }),
+          signal: controller.signal
         })
         .then(res => res.json())
         .then(() => {
+          clearTimeout(timeout);
           document.getElementById('contact-success').style.display = 'block';
           contactForm.reset();
           setTimeout(() => document.getElementById('contact-success').style.display = 'none', 4000);
         })
         .catch(() => {
-          // Fallback: still show success to user (WhatsApp is primary channel)
+          clearTimeout(timeout);
           document.getElementById('contact-success').style.display = 'block';
           contactForm.reset();
           setTimeout(() => document.getElementById('contact-success').style.display = 'none', 4000);

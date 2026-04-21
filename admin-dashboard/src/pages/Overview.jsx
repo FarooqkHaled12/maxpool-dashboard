@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getProducts, getCategories, getMessages, getOrders } from '../services/api';
 
 function StatCard({ icon, label, value, color }) {
@@ -36,14 +37,14 @@ export default function Overview() {
         <h2>Quick Actions</h2>
         <div className="quick-grid">
           {[
-            { href: '/products',   icon: 'fa-plus',  label: 'Add Product' },
-            { href: '/categories', icon: 'fa-tag',   label: 'Add Category' },
-            { href: '/messages',   icon: 'fa-inbox', label: 'View Messages' },
-            { href: '/orders',     icon: 'fa-list',  label: 'View Quotations' },
+            { to: '/products',   icon: 'fa-plus',  label: 'Add Product' },
+            { to: '/categories', icon: 'fa-tag',   label: 'Add Category' },
+            { to: '/messages',   icon: 'fa-inbox', label: 'View Messages' },
+            { to: '/orders',     icon: 'fa-list',  label: 'View Quotations' },
           ].map(q => (
-            <a key={q.href} href={q.href} className="quick-card">
+            <Link key={q.to} to={q.to} className="quick-card">
               <i className={`fa-solid ${q.icon}`}></i><span>{q.label}</span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

@@ -1,13 +1,5 @@
 import { useState, useEffect } from 'react';
-
-const BASE = import.meta.env.VITE_API_URL || '/api';
-const getToken = () => localStorage.getItem('mp_admin_token');
-const h = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' });
-const handle = async (res) => { const d = await res.json(); if (!res.ok) throw new Error(d.error || 'Failed'); return d; };
-
-const getLeads         = ()         => fetch(`${BASE}/leads`,       { headers: h() }).then(handle);
-const updateLeadStatus = (id, data) => fetch(`${BASE}/leads/${id}`, { method: 'PATCH', headers: h(), body: JSON.stringify(data) }).then(handle);
-const deleteLead       = (id)       => fetch(`${BASE}/leads/${id}`, { method: 'DELETE', headers: h() }).then(handle);
+import { getLeads, updateLeadStatus, deleteLead } from '../services/api';
 
 const STATUS_COLORS = { new: '#3b82f6', contacted: '#f59e0b', converted: '#10b981', closed: '#6b7280' };
 

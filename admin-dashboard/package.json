@@ -1,20 +1,29 @@
 {
-  "name": "maxpool-admin-dashboard",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev":     "vite",
-    "build":   "vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react":            "^18.3.1",
-    "react-dom":        "^18.3.1",
-    "react-router-dom": "^6.24.0"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^5.3.1"
-  }
+    "name":  "maxpool-admin-dashboard",
+    "version":  "1.0.0",
+    "private":  true,
+    "type":  "module",
+    "scripts":  {
+                    "dev":  "vite",
+                    "build":  "vite build",
+                    "preview":  "vite preview",
+                    "test":  "vitest run",
+                    "test:watch":  "vitest"
+                },
+    "dependencies":  {
+                         "react":  "^18.3.1",
+                         "react-dom":  "^18.3.1",
+                         "react-router-dom":  "^6.24.0"
+                     },
+    "devDependencies":  {
+                            "@testing-library/jest-dom":  "^6.9.1",
+                            "@testing-library/react":  "^16.3.2",
+                            "@testing-library/user-event":  "^14.6.1",
+                            "@vitejs/plugin-react":  "^4.3.1",
+                            "@vitest/coverage-v8":  "^4.1.4",
+                            "fast-check":  "^4.7.0",
+                            "jsdom":  "^29.0.2",
+                            "vite":  "^5.3.1",
+                            "vitest":  "^4.1.4"
+                        }
 }

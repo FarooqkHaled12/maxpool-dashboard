@@ -1,14 +1,5 @@
 import { useState, useEffect } from 'react';
-
-const BASE = import.meta.env.VITE_API_URL || '/api';
-const getToken = () => localStorage.getItem('mp_admin_token');
-const h = () => ({ Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' });
-const handle = async (res) => { const d = await res.json(); if (!res.ok) throw new Error(d.error || 'Failed'); return d; };
-
-const getPages   = ()      => fetch(`${BASE}/pages`,          { headers: h() }).then(handle);
-const getPage    = (id)    => fetch(`${BASE}/pages/${id}`,    { headers: h() }).then(handle);
-const updatePage = (id, d) => fetch(`${BASE}/pages/${id}`,    { method: 'PUT', headers: h(), body: JSON.stringify(d) }).then(handle);
-const seedPages  = ()      => fetch(`${BASE}/pages/seed/all`, { method: 'POST', headers: h() }).then(handle);
+import { getPages, getPage, updatePage, seedPages } from '../services/api';
 
 export default function Pages() {
   const [pages,     setPages]     = useState([]);
