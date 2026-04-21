@@ -10,6 +10,8 @@ export default function Layout() {
 
   const [newOrders,  setNewOrders]  = useState(0);
   const [unreadMsgs, setUnreadMsgs] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const closeSidebar = () => setSidebarOpen(false);
 
   const loadBadges = () => {
     getOrders().then(r => setNewOrders((r.data || []).filter(o => o.status === 'new').length)).catch(() => {});
@@ -36,14 +38,21 @@ export default function Layout() {
 
   return (
     <div className="admin-shell">
-      <aside className="sidebar">
+      <aside className={`sidebar${sidebarOpen ? ' sidebar-open' : ''}`}>
         <div className="sidebar-brand">
-          <span className="brand-logo">Max <span>Pool</span></span>
-          <span className="brand-sub">Admin Panel</span>
+          <div className="sidebar-brand-row">
+            <div>
+              <span className="brand-logo">Max <span>Pool</span></span>
+              <span className="brand-sub">Admin Panel</span>
+            </div>
+            <button className="sidebar-close-btn" onClick={closeSidebar}>
+              <i className="fa-solid fa-xmark"></i>
+            </button>
+          </div>
         </div>
         <nav className="sidebar-nav">
           {NAV.map(n => (
-            <NavLink key={n.to} to={n.to} className={({ isActive }) => 'nav-item' + (isActive ? ' active' : '')} onClick={loadBadges}>
+            <NavLink key={n.to} to={n.to} className={({ isActive }) => 'nav-item' + (isActive ? ' active' : '')} onClick={() => { loadBadges(); closeSidebar(); }}>
               <i className={`fa-solid ${n.icon}`}></i>
               <span style={{flex:1}}>{n.label}</span>
               {n.badge > 0 && (
@@ -66,9 +75,12 @@ export default function Layout() {
           </button>
         </div>
       </aside>
+      {sidebarOpen && <div className="sidebar-overlay" onClick={closeSidebar} />}
       <div className="main-area">
         <header className="topbar">
-          <div></div>
+          <button className="hamburger-btn" onClick={() => setSidebarOpen(o => !o)}>
+            <i className="fa-solid fa-bars"></i>
+          </button>
           <div className="topbar-admin">
             <i className="fa-solid fa-circle-user"></i>
             <span>{admin?.name || admin?.email}</span>
