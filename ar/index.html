@@ -157,13 +157,13 @@
         <p class="cv2-sub">نجمع أفضل المعدات من الشركات المصنعة العالمية وخطوط إنتاجنا الحصرية.</p>
       </div>
       <div class="cv2-tabs">
-        <button class="cv2-tab active" data-category="all"><i class="fa-solid fa-layer-group"></i> جميع المعدات</button>
-        <button class="cv2-tab" data-category="pumps"><i class="fa-solid fa-water"></i> الطلمبات</button>
-        <button class="cv2-tab" data-category="filters"><i class="fa-solid fa-filter"></i> الفلاتر</button>
-        <button class="cv2-tab" data-category="chemicals"><i class="fa-solid fa-flask"></i> الكيماويات</button>
+        <button class="cv2-tab active" data-cat="all"><i class="fa-solid fa-layer-group"></i> جميع المعدات</button>
+        <button class="cv2-tab" data-cat="cat-pumps"><i class="fa-solid fa-water"></i> الطلمبات</button>
+        <button class="cv2-tab" data-cat="cat-filters"><i class="fa-solid fa-filter"></i> الفلاتر</button>
+        <button class="cv2-tab" data-cat="cat-chemicals"><i class="fa-solid fa-flask"></i> الكيماويات</button>
       </div>
-      <div class="cv2-grid">
-        <div class="cv2-card" data-category="pumps filters">
+      <div class="cv2-grid" id="catalogGrid">
+        <div class="cv2-card" data-cat="cat-pumps cat-filters">
           <div class="cv2-card-img-wrap"><i class="fa-solid fa-water cv2-card-icon"></i><div class="cv2-card-badge">إسبانيا</div></div>
           <div class="cv2-card-body">
             <h3 class="cv2-card-title">أسترال بول (AstralPool)</h3>
@@ -172,7 +172,7 @@
             <a href="products.html?brand=astralpool" class="cv2-card-cta">تصفح المنتجات <i class="fa-solid fa-arrow-left"></i></a>
           </div>
         </div>
-        <div class="cv2-card" data-category="pumps">
+        <div class="cv2-card" data-cat="cat-pumps">
           <div class="cv2-card-img-wrap"><i class="fa-solid fa-fan cv2-card-icon"></i><div class="cv2-card-badge">أمريكا / إيطاليا</div></div>
           <div class="cv2-card-body">
             <h3 class="cv2-card-title">هايوارد وأكوا</h3>
@@ -181,7 +181,7 @@
             <a href="products.html?brand=hayward" class="cv2-card-cta">تصفح المنتجات <i class="fa-solid fa-arrow-left"></i></a>
           </div>
         </div>
-        <div class="cv2-card" data-category="filters chemicals">
+        <div class="cv2-card" data-cat="cat-filters cat-chemicals">
           <div class="cv2-card-img-wrap"><i class="fa-solid fa-flask cv2-card-icon"></i><div class="cv2-card-badge">مصر</div></div>
           <div class="cv2-card-body">
             <h3 class="cv2-card-title">فلاتر وكيماويات ماكس بول</h3>
@@ -191,20 +191,339 @@
           </div>
         </div>
       </div>
+
+      <!-- Bottom CTA — Split Layout -->
+      <style>
+        .cv2-bottom {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 48px;
+          align-items: center;
+          padding: 60px 56px;
+          background: linear-gradient(135deg, #001d3d 0%, #003566 60%, #0077b6 100%);
+          border-radius: 28px;
+          position: relative;
+          overflow: hidden;
+        }
+        .cv2-bottom::before {
+          content: '';
+          position: absolute;
+          top: -60%;
+          right: -10%;
+          width: 500px;
+          height: 500px;
+          background: radial-gradient(circle, rgba(0,180,216,0.15) 0%, transparent 70%);
+          pointer-events: none;
+        }
+        .cv2-bottom-left { position: relative; z-index: 1; }
+        .cv2-bottom-badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          background: rgba(0,180,216,0.2);
+          border: 1px solid rgba(0,180,216,0.4);
+          color: #90e0ef;
+          font-size: 12px;
+          font-weight: 700;
+          letter-spacing: 1.5px;
+          text-transform: uppercase;
+          padding: 6px 16px;
+          border-radius: 999px;
+          margin-bottom: 20px;
+        }
+        .cv2-bottom h3 {
+          font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+          font-weight: 800;
+          color: #fff;
+          margin: 0 0 14px;
+          line-height: 1.25;
+        }
+        .cv2-bottom-left > p {
+          color: rgba(255,255,255,0.65);
+          font-size: 16px;
+          line-height: 1.7;
+          margin: 0 0 24px;
+        }
+        .cv2-bottom-list {
+          list-style: none;
+          padding: 0;
+          margin: 0 0 32px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+        .cv2-bottom-list li {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          color: rgba(255,255,255,0.85);
+          font-size: 15px;
+          font-weight: 500;
+        }
+        .cv2-bottom-list li i { color: #00b4d8; font-size: 18px; flex-shrink: 0; }
+        .cv2-bottom-actions {
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          flex-wrap: wrap;
+        }
+        .cv2-phone-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          color: rgba(255,255,255,0.8);
+          font-size: 16px;
+          font-weight: 700;
+          text-decoration: none;
+          transition: color 0.3s;
+        }
+        .cv2-phone-link:hover { color: #00b4d8; }
+        .cv2-phone-link i {
+          background: rgba(255,255,255,0.1);
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 14px;
+        }
+        .cv2-bottom-right { position: relative; z-index: 1; }
+        .cv2-form-card {
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 20px;
+          padding: 32px 28px;
+          backdrop-filter: blur(12px);
+        }
+        .cv2-form-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 24px;
+        }
+        .cv2-form-header i {
+          background: linear-gradient(135deg, #0077b6, #00b4d8);
+          color: #fff;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 16px;
+          flex-shrink: 0;
+        }
+        .cv2-form-header h4 { color: #fff; font-size: 20px; font-weight: 700; margin: 0; }
+        .cv2-form { display: flex; flex-direction: column; gap: 14px; }
+        .cv2-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .cv2-form input,
+        .cv2-form select,
+        .cv2-form textarea {
+          width: 100%;
+          padding: 13px 16px;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.15);
+          border-radius: 10px;
+          color: #fff;
+          font-size: 14px;
+          font-family: inherit;
+          outline: none;
+          transition: border-color 0.3s, background 0.3s;
+          box-sizing: border-box;
+          text-align: right;
+        }
+        .cv2-form input::placeholder,
+        .cv2-form textarea::placeholder { color: rgba(255,255,255,0.4); }
+        .cv2-form select option { background: #003566; color: #fff; }
+        .cv2-form input:focus,
+        .cv2-form select:focus,
+        .cv2-form textarea:focus {
+          border-color: #00b4d8;
+          background: rgba(0,180,216,0.1);
+        }
+        .cv2-form textarea { resize: none; }
+        .cv2-form-btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          background: linear-gradient(135deg, #0077b6, #00b4d8);
+          color: #fff;
+          border: none;
+          border-radius: 10px;
+          padding: 15px;
+          font-size: 15px;
+          font-weight: 700;
+          font-family: inherit;
+          cursor: pointer;
+          transition: all 0.3s;
+          width: 100%;
+        }
+        .cv2-form-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(0,119,182,0.4);
+        }
+        .cv2-form-btn i { transition: transform 0.3s; }
+        .cv2-form-btn:hover i { transform: translateX(-4px); }
+        @media (max-width: 900px) {
+          .cv2-bottom { grid-template-columns: 1fr; padding: 40px 28px; }
+          .cv2-form-row { grid-template-columns: 1fr; }
+        }
+      </style>
+
+      <div class="cv2-bottom">
+        <div class="cv2-bottom-left">
+          <div class="cv2-bottom-badge"><i class="fa-solid fa-headset"></i> استشارة الخبراء</div>
+          <h3>تحتاج مساعدة في اختيار المعدات؟</h3>
+          <p>خبراؤنا التقنيون سيرشدونك إلى الحل المثالي لمسبحك.</p>
+          <ul class="cv2-bottom-list">
+            <li><i class="fa-solid fa-circle-check"></i> <span>استشارة تقنية مجانية</span></li>
+            <li><i class="fa-solid fa-circle-check"></i> <span>توصيات معدات مخصصة</span></li>
+            <li><i class="fa-solid fa-circle-check"></i> <span>دعم ما بعد البيع مشمول</span></li>
+          </ul>
+          <div class="cv2-bottom-actions">
+            <a href="products.html" class="btn btn-primary btn-lg shine-effect">
+              <span>تصفح الكتالوج الكامل</span>
+              <i class="fa-solid fa-arrow-left" style="margin-right:8px;"></i>
+            </a>
+            <a href="tel:01006205650" class="cv2-phone-link">
+              <i class="fa-solid fa-phone"></i>
+              <span>01006205650</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="cv2-bottom-right">
+          <div class="cv2-form-card">
+            <div class="cv2-form-header">
+              <i class="fa-solid fa-paper-plane"></i>
+              <h4>استفسار سريع</h4>
+            </div>
+            <form class="cv2-form" onsubmit="cv2SubmitFormAr(event)">
+              <div class="cv2-form-row">
+                <input type="text" placeholder="اسمك" required>
+                <input type="tel" placeholder="رقم الهاتف" required>
+              </div>
+              <select required>
+                <option value="" disabled selected>نوع المعدات</option>
+                <option>مضخات ومحركات</option>
+                <option>فلاتر رمل</option>
+                <option>كيماويات المسبح</option>
+                <option>تجهيز مسبح كامل</option>
+                <option>أخرى</option>
+              </select>
+              <textarea rows="3" placeholder="أخبرنا عن مشروعك..."></textarea>
+              <button type="submit" class="cv2-form-btn">
+                <span>إرسال الاستفسار</span>
+                <i class="fa-solid fa-arrow-left"></i>
+              </button>
+            </form>
+            <p id="cv2FormMsgAr" style="display:none; margin-top:12px; color:#4ade80; font-weight:600; text-align:center;"></p>
+          </div>
+        </div>
+      </div>
+
       <script>
-        document.querySelectorAll('.cv2-tab').forEach(tab => {
-          tab.addEventListener('click', () => {
-            document.querySelectorAll('.cv2-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            const cat = tab.dataset.category;
-            document.querySelectorAll('.cv2-card').forEach(card => {
-              card.style.display = (cat === 'all' || card.dataset.category.includes(cat)) ? '' : 'none';
-            });
+        function cv2SubmitFormAr(e) {
+          e.preventDefault();
+          var btn = e.target.querySelector('.cv2-form-btn');
+          var msg = document.getElementById('cv2FormMsgAr');
+          var inputs = e.target.querySelectorAll('input, select, textarea');
+          var name    = inputs[0].value.trim();
+          var phone   = inputs[1].value.trim();
+          var service = inputs[2].value;
+          var message = inputs[3].value.trim() || service;
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الإرسال...';
+          var base = (typeof API_BASE !== 'undefined') ? API_BASE : 'https://maxpool-production.up.railway.app';
+          fetch(base + '/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name: name, phone: phone, message: message || service, service: service })
+          })
+          .finally(function() {
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> تم الإرسال!';
+            msg.style.display = 'block';
+            msg.textContent = '✓ استلمنا استفسارك وسنتواصل معك قريباً.';
+            e.target.reset();
+            setTimeout(function() {
+              btn.disabled = false;
+              btn.innerHTML = '<span>إرسال الاستفسار</span> <i class="fa-solid fa-arrow-left"></i>';
+              msg.style.display = 'none';
+            }, 4000);
           });
-        });
+        }
       </script>
+
     </div>
   </section>
+
+  <!-- config.js loaded here so API_BASE is available to the inline script below -->
+  <script src="../js/config.js"></script>
+  <script>
+    // ── تصفية معدات المسبح ──────────────────────────────────────
+    (function() {
+      var RAILWAY = 'https://maxpool-production.up.railway.app';
+      var base = (typeof API_BASE !== 'undefined') ? API_BASE : RAILWAY;
+      var grid = document.getElementById('catalogGrid');
+      var allProducts = [];
+
+      function renderCards(products) {
+        if (!grid) return;
+        if (!products || !products.length) return;
+        grid.innerHTML = products.map(function(p) {
+          var id    = p._id || p.id || '';
+          var title = p.name || p.title || '';
+          var imgRaw = Array.isArray(p.images) ? p.images[0] : (typeof p.images === 'string' ? p.images : '');
+          var img   = imgRaw
+            ? (imgRaw.startsWith('http') ? imgRaw
+              : (imgRaw.startsWith('/uploads') || imgRaw.startsWith('/images')) ? RAILWAY + imgRaw
+              : '/' + imgRaw.replace(/^\//, ''))
+            : '';
+          var brand = p.brandName || p.brand || '';
+          var desc  = (p.description || '').slice(0, 90) + ((p.description || '').length > 90 ? '...' : '');
+          var cat   = (p.category || '').toLowerCase();
+          return '<div class="cv2-card" data-cat="' + cat + '" onclick="location.href=\'../product.html?id=' + id + '\'">'
+            + '<div class="cv2-card-img-wrap">'
+            + (img ? '<img src="' + img + '" alt="' + title + '" loading="lazy" style="width:100%;height:100%;object-fit:cover;">' : '<i class="fa-solid fa-box cv2-card-icon"></i>')
+            + (brand ? '<div class="cv2-card-badge">' + brand + '</div>' : '')
+            + '</div>'
+            + '<div class="cv2-card-body">'
+            + '<h3 class="cv2-card-title">' + title + '</h3>'
+            + '<p class="cv2-card-desc">' + desc + '</p>'
+            + '<a href="../product.html?id=' + id + '" class="cv2-card-cta" onclick="event.stopPropagation()">عرض التفاصيل <i class="fa-solid fa-arrow-left"></i></a>'
+            + '</div></div>';
+        }).join('');
+      }
+
+      function filterCards(cat) {
+        if (!allProducts.length) return;
+        var filtered = cat === 'all' ? allProducts : allProducts.filter(function(p) {
+          return (p.category || '').toLowerCase() === cat;
+        });
+        renderCards(filtered.length ? filtered : allProducts);
+      }
+
+      // تحميل جميع المنتجات مرة واحدة ثم التصفية من جهة العميل
+      fetch(base + '/api/products?limit=50')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          allProducts = Array.isArray(data) ? data : (data.products || data.data || []);
+          renderCards(allProducts);
+        })
+        .catch(function() {});
+
+      // معالجات النقر على التبويبات — التصفية من جهة العميل
+      document.querySelectorAll('.cv2-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.cv2-tab').forEach(function(t) { t.classList.remove('active'); });
+          tab.classList.add('active');
+          filterCards(tab.dataset.cat);
+        });
+      });
+    })();
+  </script>
 
   <!-- ── مشاريعنا ── -->
   <style>
