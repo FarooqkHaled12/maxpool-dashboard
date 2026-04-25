@@ -1,0 +1,269 @@
+/**
+ * urgency.css — Max Pool Urgency & Conversion Triggers
+ * All styles for urgency elements: UrgencyBar, ViewerCounter, ScarcityBadge,
+ * ResponseTimer, FOMOTicker, ExitPrompt, ScrollCTA, TimeSensitiveCTAs
+ */
+
+/* ── Urgency Bar ─────────────────────────────────────────────────────────── */
+#urgency-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10001;
+  background: #004b87;
+  color: white;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 500;
+  gap: 12px;
+}
+#urgency-bar-msg {
+  flex: 1;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+#urgency-bar.fading #urgency-bar-msg {
+  opacity: 0;
+}
+#urgency-bar-wa {
+  color: #25D366;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 12px;
+  border: 1px solid #25D366;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+#urgency-bar-wa:hover { background: #25D366; color: white; }
+#urgency-bar-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+#urgency-bar-close:hover { color: white; }
+
+/* ── Viewer Counter ──────────────────────────────────────────────────────── */
+#viewer-counter {
+  font-size: 13px;
+  color: #555;
+  margin: 8px 0 4px;
+  padding: 6px 10px;
+  background: #f0f7ff;
+  border-radius: 6px;
+  display: inline-block;
+  border: 1px solid #bfdbfe;
+}
+
+/* ── Scarcity Badge ──────────────────────────────────────────────────────── */
+.scarcity-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #ff4444;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Response Timer ──────────────────────────────────────────────────────── */
+.response-timer {
+  font-size: 13px;
+  color: #666;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── FOMO Ticker ─────────────────────────────────────────────────────────── */
+#fomo-ticker {
+  position: fixed;
+  bottom: 24px;
+  left: 20px;
+  z-index: 9990;
+  max-width: 320px;
+  background: white;
+  border-left: 4px solid #25D366;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+  font-size: 13px;
+  color: #333;
+  display: none;
+  line-height: 1.4;
+}
+#fomo-ticker.fomo-visible {
+  display: block;
+  animation: fadeInUp 0.3s ease;
+}
+
+/* ── Exit Overlay & Modal ────────────────────────────────────────────────── */
+#exit-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 10002;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+#exit-overlay.exit-visible {
+  display: flex;
+}
+#exit-modal {
+  background: white;
+  border-radius: 16px;
+  padding: 36px 32px;
+  max-width: 440px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+#exit-modal h3 {
+  font-size: 20px;
+  color: #004b87;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+#exit-modal p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 24px;
+}
+#exit-modal-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+#exit-modal-wa:hover { background: #1ebe5d; }
+#exit-modal-close {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+#exit-modal-close:hover { color: #333; }
+
+/* ── Scroll CTA ──────────────────────────────────────────────────────────── */
+#scroll-cta {
+  position: fixed;
+  bottom: 90px;
+  right: 90px;
+  z-index: 9980;
+  display: none;
+  background: #004b87;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0,75,135,0.35);
+  white-space: nowrap;
+}
+#scroll-cta:hover { background: #003a6e; }
+#scroll-cta.visible {
+  display: block;
+  animation: slideInUp 300ms ease;
+}
+
+/* ── Urgency Hint & Online Dot ───────────────────────────────────────────── */
+.urgency-hint {
+  font-size: 13px;
+  color: #e65c00;
+  margin-top: 8px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.online-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #25D366;
+  font-weight: 600;
+  margin-top: 4px;
+}
+.online-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #25D366;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+  flex-shrink: 0;
+}
+
+/* ── Keyframes ───────────────────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.3); }
+}
+
+/* ── Reduced Motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  #urgency-bar-msg,
+  #fomo-ticker,
+  #fomo-ticker.fomo-visible,
+  #scroll-cta,
+  #scroll-cta.visible,
+  .online-dot {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ── RTL overrides (ar/ pages) ───────────────────────────────────────────── */
+[dir="rtl"] .scarcity-badge {
+  left: auto;
+  right: 8px;
+}
+[dir="rtl"] #fomo-ticker {
+  left: auto;
+  right: 20px;
+  border-left: none;
+  border-right: 4px solid #25D366;
+}
+[dir="rtl"] #scroll-cta {
+  right: auto;
+  left: 90px;
+}

@@ -36,3 +36,71 @@
 @media (max-width: 767px) {
   .btn-lg { padding: var(--space-3) var(--space-6); font-size: var(--font-size-base); }
 }
+
+/* -- Mobile CTA minimum touch target sizes -- */
+@media (max-width: 767px) {
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* Override for compact card buttons */
+  .product-card-actions .btn {
+    min-height: 34px;
+  }
+}
+
+/* -- Product Card Actions (two-button row) -- */
+.product-card-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
+
+.product-card-actions .btn-primary {
+  flex: 1;
+  font-size: 0.8rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  transition: all 200ms ease;
+}
+
+.product-card-actions .btn-outline {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 200ms ease;
+}
+
+.product-card-actions .btn-outline span,
+.product-card-actions .btn-outline .btn-text {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .product-card-actions {
+    gap: 5px;
+    padding-top: 6px;
+  }
+  .product-card-actions .btn-primary {
+    font-size: 0.72rem;
+    padding: 7px 8px;
+  }
+  .product-card-actions .btn-outline {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+}

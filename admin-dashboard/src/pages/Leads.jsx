@@ -1,17 +1,67 @@
 import { useState, useEffect } from 'react';
-import { getLeads, updateLeadStatus, deleteLead } from '../services/api';
+import { getLeads, getLead, getLeadStats, updateLeadStatus, deleteLead } from '../services/api';
 
-const STATUS_COLORS = { new: '#3b82f6', contacted: '#f59e0b', converted: '#10b981', closed: '#6b7280' };
+const STATUS_COLORS = {
+  new: '#3b82f6', contacted: '#f59e0b', converted: '#10b981', closed: '#6b7280',
+};
+
+const SOURCE_COLORS = {
+  contact_form:     { bg: '#dbeafe', color: '#1d4ed8' },
+  whatsapp_float:   { bg: '#dcfce7', color: '#15803d' },
+  whatsapp_product: { bg: '#bbf7d0', color: '#166534' },
+  whatsapp_cart:    { bg: '#a7f3d0', color: '#065f46' },
+  cart_submission:  { bg: '#fef9c3', color: '#854d0e' },
+  website:          { bg: '#f1f5f9', color: '#475569' },
+  whatsapp:         { bg: '#dcfce7', color: '#15803d' },
+  phone:            { bg: '#fce7f3', color: '#9d174d' },
+  referral:         { bg: '#ede9fe', color: '#6d28d9' },
+  social_media:     { bg: '#ffedd5', color: '#c2410c' },
+  other:            { bg: '#f1f5f9', color: '#64748b' },
+};
+
+const ALL_SOURCES = [
+  'contact_form','whatsapp_float','whatsapp_product','whatsapp_cart',
+  'cart_submission','website','whatsapp','phone','referral','social_media','other',
+];
+
+const formatSource = (s) =>
+  (s || 'unknown').replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+const SourceBadge = ({ source }) => {
+  const style = SOURCE_COLORS[source] || { bg: '#f1f5f9', color: '#64748b' };
+  return (
+    <span className="badge" style={{ background: style.bg, color: style.color, border: `1px solid ${style.color}30` }}>
+      {formatSource(source)}
+    </span>
+  );
+};
 
 export default function Leads() {
-  const [leads,    setLeads]    = useState([]);
-  const [filter,   setFilter]   = useState('all');
-  const [selected, setSelected] = useState(null);
-  const [notes,    setNotes]    = useState('');
-  const [msg,      setMsg]      = useState('');
+  const [leads,        setLeads]        = useState([]);
+  const [filter,       setFilter]       = useState('all');
+  const [sourceFilter, setSourceFilter] = useState('all');
+  const [search,       setSearch]       = useState('');
+  const [selected,     setSelected]     = useState(null);
+  const [notes,        setNotes]        = useState('');
+  const [msg,          setMsg]          = useState('');
+  const [stats,        setStats]        = useState({ totalLeads: 0, todayLeads: 0, thisWeekLeads: 0 });
 
-  const load = () => getLeads().then(r => setLeads(r.data || []));
-  useEffect(() => { load(); }, []);
+  const load = () => getLeads().then((r) => setLeads(r.data || []));
+
+  useEffect(() => {
+    load();
+    getLeadStats().then((r) => setStats(r.data || {})).catch(() => {});
+  }, []);
+
+  const handleRowClick = async (lead) => {
+    try {
+      const fresh = await getLead(lead._id);
+      setSelected(fresh.data || lead);
+    } catch {
+      setSelected(lead);
+    }
+    setNotes(lead.notes || '');
+  };
 
   const handleStatus = async (id, status) => {
     await updateLeadStatus(id, { status, notes });
@@ -27,8 +77,16 @@ export default function Leads() {
     if (selected?._id === id) setSelected(null);
   };
 
-  const filtered = filter === 'all' ? leads : leads.filter(l => l.status === filter);
-  const counts   = leads.reduce((acc, l) => { acc[l.status] = (acc[l.status] || 0) + 1; return acc; }, {});
+  const filtered = leads
+    .filter((l) => filter       === 'all' || l.status === filter)
+    .filter((l) => sourceFilter === 'all' || l.source === sourceFilter)
+    .filter((l) => {
+      if (!search) return true;
+      const q = search.toLowerCase();
+      return (l.name || '').toLowerCase().includes(q) || (l.phone || '').toLowerCase().includes(q);
+    });
+
+  const counts = leads.reduce((acc, l) => { acc[l.status] = (acc[l.status] || 0) + 1; return acc; }, {});
 
   return (
     <div>
@@ -38,9 +96,26 @@ export default function Leads() {
 
       {msg && <div className="alert alert-success">{msg}</div>}
 
+      <div className="stats-grid" style={{ marginBottom: '12px' }}>
+        <div className="stat-card">
+          <div className="stat-icon" style={{ background: '#0ea5e9' }}><i className="fa-solid fa-calendar-day"></i></div>
+          <div className="stat-info"><div className="stat-value">{stats.todayLeads || 0}</div><div className="stat-label">Today</div></div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon" style={{ background: '#8b5cf6' }}><i className="fa-solid fa-calendar-week"></i></div>
+          <div className="stat-info"><div className="stat-value">{stats.thisWeekLeads || 0}</div><div className="stat-label">This Week</div></div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon" style={{ background: '#f59e0b' }}><i className="fa-solid fa-users"></i></div>
+          <div className="stat-info"><div className="stat-value">{stats.totalLeads || leads.length}</div><div className="stat-label">Total</div></div>
+        </div>
+      </div>
+
       <div className="stats-grid" style={{ marginBottom: '20px' }}>
-        {['new', 'contacted', 'converted', 'closed'].map(s => (
-          <div key={s} className="stat-card" style={{ cursor: 'pointer', border: filter === s ? `2px solid ${STATUS_COLORS[s]}` : '' }} onClick={() => setFilter(filter === s ? 'all' : s)}>
+        {['new', 'contacted', 'converted', 'closed'].map((s) => (
+          <div key={s} className="stat-card"
+            style={{ cursor: 'pointer', border: filter === s ? `2px solid ${STATUS_COLORS[s]}` : '' }}
+            onClick={() => setFilter(filter === s ? 'all' : s)}>
             <div className="stat-icon" style={{ background: STATUS_COLORS[s] }}><i className="fa-solid fa-user"></i></div>
             <div className="stat-info">
               <div className="stat-value">{counts[s] || 0}</div>
@@ -50,21 +125,34 @@ export default function Leads() {
         ))}
       </div>
 
+      <div style={{ display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap' }}>
+        <select value={sourceFilter} onChange={(e) => setSourceFilter(e.target.value)}
+          style={{ padding: '8px 12px', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '13px', background: 'white' }}>
+          <option value="all">All Sources</option>
+          {ALL_SOURCES.map((s) => <option key={s} value={s}>{formatSource(s)}</option>)}
+        </select>
+        <input type="text" placeholder="Search by name or phone..."
+          value={search} onChange={(e) => setSearch(e.target.value)}
+          style={{ padding: '8px 12px', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '13px', flex: 1, minWidth: '200px' }} />
+      </div>
+
       <div style={{ display: 'grid', gridTemplateColumns: selected ? '1fr 340px' : '1fr', gap: '20px' }}>
         <div className="table-wrap">
           <table className="data-table">
-            <thead><tr><th>Name</th><th>Phone</th><th>Message</th><th>Source</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+            <thead>
+              <tr><th>Name</th><th>Phone</th><th>Message</th><th>Source</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+            </thead>
             <tbody>
               {filtered.length === 0 && <tr><td colSpan="7" className="empty-row">No leads found</td></tr>}
-              {filtered.map(l => (
-                <tr key={l._id} style={{ cursor: 'pointer' }} onClick={() => { setSelected(l); setNotes(l.notes || ''); }}>
+              {filtered.map((l) => (
+                <tr key={l._id} style={{ cursor: 'pointer' }} onClick={() => handleRowClick(l)}>
                   <td><strong>{l.name}</strong></td>
-                  <td><a href={`tel:${l.phone}`} onClick={e => e.stopPropagation()} style={{ color: 'var(--accent)' }}>{l.phone}</a></td>
-                  <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{l.message || 'â€”'}</td>
-                  <td><span className="badge">{l.source}</span></td>
-                  <td><span className="badge" style={{ background: STATUS_COLORS[l.status] + '20', color: STATUS_COLORS[l.status] }}>{l.status}</span></td>
+                  <td><a href={`tel:${l.phone}`} onClick={(e) => e.stopPropagation()} style={{ color: 'var(--accent)' }}>{l.phone}</a></td>
+                  <td style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{l.message || '—'}</td>
+                  <td><SourceBadge source={l.source} /></td>
+                  <td><span className="badge" style={{ background: (STATUS_COLORS[l.status] || '#6b7280') + '20', color: STATUS_COLORS[l.status] || '#6b7280' }}>{l.status}</span></td>
                   <td>{new Date(l.createdAt).toLocaleDateString()}</td>
-                  <td onClick={e => e.stopPropagation()}>
+                  <td onClick={(e) => e.stopPropagation()}>
                     <button className="btn-icon btn-icon-red" onClick={() => handleDelete(l._id)}><i className="fa-solid fa-trash"></i></button>
                   </td>
                 </tr>
@@ -83,11 +171,17 @@ export default function Leads() {
               <p><i className="fa-solid fa-phone" style={{ marginRight: '8px' }}></i><a href={`tel:${selected.phone}`}>{selected.phone}</a></p>
               {selected.email && <p><i className="fa-solid fa-envelope" style={{ marginRight: '8px' }}></i>{selected.email}</p>}
               <p><i className="fa-solid fa-calendar" style={{ marginRight: '8px' }}></i>{new Date(selected.createdAt).toLocaleString()}</p>
+              <p style={{ marginTop: '8px' }}><strong>Source: </strong><SourceBadge source={selected.source} /></p>
+              {selected.page && (
+                <p style={{ fontSize: '11px', wordBreak: 'break-all', marginTop: '4px', opacity: 0.7 }}>
+                  <i className="fa-solid fa-link" style={{ marginRight: '6px' }}></i>{selected.page}
+                </p>
+              )}
               {selected.message && <p style={{ background: '#f8fafc', padding: '10px', borderRadius: '6px', marginTop: '8px' }}>{selected.message}</p>}
             </div>
             <div className="form-group">
               <label>Status</label>
-              <select value={selected.status} onChange={e => { setSelected({ ...selected, status: e.target.value }); handleStatus(selected._id, e.target.value); }}>
+              <select value={selected.status} onChange={(e) => { setSelected({ ...selected, status: e.target.value }); handleStatus(selected._id, e.target.value); }}>
                 <option value="new">New</option>
                 <option value="contacted">Contacted</option>
                 <option value="converted">Converted</option>
@@ -96,13 +190,14 @@ export default function Leads() {
             </div>
             <div className="form-group">
               <label>Notes</label>
-              <textarea rows={4} value={notes} onChange={e => setNotes(e.target.value)} placeholder="Add notes..." />
+              <textarea rows={4} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="Add notes..." />
             </div>
             <button className="btn btn-primary" style={{ width: '100%' }} onClick={() => handleStatus(selected._id, selected.status)}>
               <i className="fa-solid fa-floppy-disk"></i> Save Notes
             </button>
             <div style={{ marginTop: '12px', display: 'flex', gap: '8px' }}>
-              <a href={`https://wa.me/${selected.phone.replace(/\D/g, '')}`} target="_blank" rel="noopener" className="btn btn-outline" style={{ flex: 1, textAlign: 'center', color: '#25D366', borderColor: '#25D366' }}>
+              <a href={`https://wa.me/${selected.phone.replace(/\D/g, '')}`} target="_blank" rel="noopener"
+                className="btn btn-outline" style={{ flex: 1, textAlign: 'center', color: '#25D366', borderColor: '#25D366' }}>
                 <i className="fa-brands fa-whatsapp"></i> WhatsApp
               </a>
               <a href={`tel:${selected.phone}`} className="btn btn-outline" style={{ flex: 1, textAlign: 'center' }}>

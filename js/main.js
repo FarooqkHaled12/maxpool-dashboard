@@ -1,19 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Central WhatsApp number — updated from API if available ──────────
-  window.WA_NUMBER = '201006205650';
-
   // ── Load site settings from API and apply dynamic content ──────────────
-  const _base = (typeof API_BASE !== 'undefined') ? API_BASE : 'https://maxpool-production.up.railway.app';
   const _isAr = window.location.pathname.includes('/ar/');
 
-  const _settingsCtrl = new AbortController();
-  setTimeout(() => _settingsCtrl.abort(), 6000);
-
-  fetch(`${_base}/api/settings`, { signal: _settingsCtrl.signal })
-    .then(r => r.json())
-    .then(({ data: s }) => {
-      if (!s) return;
+  window.MaxPoolAPI.getSettings().then(s => {
+    if (!s) return;
       // Phone number
       if (s.phone) {
         document.querySelectorAll('a[href^="tel:"]').forEach(a => { a.href = `tel:${s.phone}`; if (!a.querySelector('i')) a.textContent = s.phone; });
@@ -21,9 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
           if (p.innerHTML.includes('fa-phone')) p.innerHTML = `<i class="fa-solid fa-phone"></i> ${s.phone}`;
         });
       }
-      // WhatsApp — update central number and all existing links
+      // WhatsApp — update central number; static links in blog/pricing/footer get patched
       if (s.whatsapp) {
         window.WA_NUMBER = s.whatsapp;
+        // Patch static wa.me anchor links (blog posts, pricing pages, hero CTAs, footer)
+        // Dynamic buttons (product cards, floating widget, cart) use window.WA_NUMBER via openWhatsApp()
         document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
           a.href = a.href.replace(/wa\.me\/\d+/, `wa.me/${s.whatsapp}`);
         });
@@ -32,14 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (s.facebook_url) {
         document.querySelectorAll('a[href*="facebook.com"]').forEach(a => { a.href = s.facebook_url; });
       }
-      // Hero title & subtitle — only update if API text is longer than hardcoded
+      // Hero title & subtitle — handled by page-loader.js (pages API)
+      // main.js only updates from settings API as a fallback when page-loader is not active
       const heroTitle = document.querySelector('.hero-title');
       const heroSub   = document.querySelector('.hero-subtitle');
-      if (heroTitle) {
+      if (heroTitle && !heroTitle.dataset.pageLoaded) {
         const txt = _isAr ? s.hero_title_ar : s.hero_title_en;
         if (txt && txt.length > 5) heroTitle.innerHTML = txt;
       }
-      if (heroSub) {
+      if (heroSub && !heroSub.dataset.pageLoaded) {
         const txt = _isAr ? s.hero_sub_ar : s.hero_sub_en;
         const current = heroSub.textContent || '';
         if (txt && txt.length >= current.length) heroSub.textContent = txt;
@@ -47,50 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(() => {}); // Fail silently — hardcoded fallbacks remain
 
-  // --- LANGUAGE TOGGLE (EN / AR) in Navbar ---
-  const langBtn = document.createElement('button');
-  langBtn.id = 'langToggleBtn';
-  langBtn.setAttribute('aria-label', 'Toggle language');
-  langBtn.style.cssText = `
-    background: transparent;
-    border: 1.5px solid #004b87;
-    color: #004b87;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    padding: 6px 14px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    margin-left: 12px;
-    flex-shrink: 0;
-  `;
-  // Detect if we're in the /ar/ subfolder
-  const isArabicPage = window.location.pathname.includes('/ar/');
-  langBtn.innerHTML = `<i class="fa-solid fa-globe" style="margin-right:6px; font-size:12px;"></i><span id="langLabel">${isArabicPage ? 'EN' : 'AR'}</span>`;
-  langBtn.onmouseover = () => { langBtn.style.background = '#004b87'; langBtn.style.color = 'white'; };
-  langBtn.onmouseout  = () => { langBtn.style.background = 'transparent'; langBtn.style.color = '#004b87'; };
-
-  const navbarInner = document.querySelector('.navbar-inner');
-  if (navbarInner) navbarInner.appendChild(langBtn);
-
-  langBtn.addEventListener('click', () => {
-    const currentFile = window.location.pathname.split('/').pop() || 'index.html';
-    const page = currentFile === '' ? 'index.html' : currentFile;
-    if (isArabicPage) {
-      // Go back to English version (one level up)
-      window.location.href = '../' + page;
-    } else {
-      // Go to Arabic version
-      window.location.href = 'ar/' + page;
-    }
-  });
-
   // --- FLOATING WHATSAPP WIDGET ---
-  const waBtn = document.createElement('a');
-  waBtn.href = `https://wa.me/${window.WA_NUMBER}`;
-  waBtn.target = "_blank";
+  const waBtn = document.createElement('button');
+  waBtn.setAttribute('aria-label', 'Contact via WhatsApp');
   waBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
   waBtn.style.cssText = `
     position: fixed;
@@ -107,11 +60,18 @@ document.addEventListener('DOMContentLoaded', () => {
     font-size: 30px;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
     z-index: 9999;
-    text-decoration: none;
+    border: none;
+    cursor: pointer;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   `;
   waBtn.onmouseover = () => waBtn.style.transform = 'scale(1.15)';
-  waBtn.onmouseout = () => waBtn.style.transform = 'scale(1)';
+  waBtn.onmouseout  = () => waBtn.style.transform = 'scale(1)';
+  waBtn.onclick     = () => {
+    if (typeof window.trackWhatsAppLead === 'function') {
+      window.trackWhatsAppLead('float', null);
+    }
+    window.openWhatsApp(window.buildGeneralMessage());
+  };
   document.body.appendChild(waBtn);
 
   // Mobile Navigation Toggle
@@ -241,12 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!name || !phone) return alert(document.documentElement.lang === 'ar' ? 'يرجى إدخال الاسم ورقم الهاتف.' : 'Please fill in your name and phone number.');
 
         const itemsList = items.map((item, i) => `${i + 1}. ${item.title}`).join('%0A');
-        const isArLang = document.documentElement.lang === 'ar';
-        const msg = isArLang
-          ? `مرحباً ماكس بول,%0A%0Aأرغب في طلب عرض سعر للمنتجات التالية:%0A%0A${itemsList}%0A%0Aاسم العميل: ${encodeURIComponent(name)}%0Aالهاتف: ${encodeURIComponent(phone)}%0A%0Aيرجى التواصل معي بالأسعار والتوافر. شكراً.`
-          : `Hello Max Pool,%0A%0AI would like to request a quotation for the following products:%0A%0A${itemsList}%0A%0AClient Name: ${encodeURIComponent(name)}%0APhone: ${encodeURIComponent(phone)}%0A%0APlease contact me with pricing and availability. Thank you.`;
-        const waUrl = `https://wa.me/${window.WA_NUMBER}?text=${msg}`;
 
+        // Open PDF quotation window
         const pdfWin = window.open('', '_blank');
         if (pdfWin) {
           pdfWin.document.write(`
@@ -296,16 +252,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // POST order to MongoDB — fire and forget
-        fetch(`${API_BASE}/api/orders`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, phone, items })
-        }).catch(() => {});
+        window.MaxPoolAPI.postOrder({ name, phone, items });
 
-        window.open(waUrl, '_blank');
+        // Send WhatsApp message via central system
+        window.openWhatsApp(window.buildCartMessage(items, name, phone));
+        // Track cart lead — fire and forget
+        if (typeof window.trackCartLead === 'function') {
+          window.trackCartLead(items, name, phone);
+        }
         window.cartItems = [];
         updateCartUI();
         document.getElementById('cartModal').style.display = 'none';
+        // Fire real FOMO notification for other visitors
+        if (items.length > 0) {
+          var firstProduct = items[0].title;
+          window.dispatchEvent(new CustomEvent('maxpool:order', { detail: { product: firstProduct } }));
+        }
         e.target.reset();
       };
     }
@@ -316,6 +278,89 @@ document.addEventListener('DOMContentLoaded', () => {
       countEl.style.transform = 'scale(1.5)';
       setTimeout(() => countEl.style.transform = 'scale(1)', 200);
     }
+  };
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // RELATED / CROSS-SELL PRODUCTS SYSTEM
+  // Reuses products already fetched — no new API calls
+  // ─────────────────────────────────────────────────────────────────────────
+
+  // Category relation map — defines which categories are related to each other
+  const RELATED_MAP = {
+    'cat-pumps':        ['cat-filters', 'cat-chemicals', 'cat-fittings'],
+    'cat-filters':      ['cat-pumps', 'cat-chemicals', 'cat-cleaners'],
+    'cat-chemicals':    ['cat-pumps', 'cat-filters', 'cat-testing'],
+    'cat-lights':       ['cat-fittings', 'cat-controls', 'cat-transformers'],
+    'cat-fittings':     ['cat-pumps', 'cat-lights', 'cat-spareparts'],
+    'cat-cleaners':     ['cat-filters', 'cat-chemicals', 'cat-testing'],
+    'cat-testing':      ['cat-chemicals', 'cat-cleaners', 'cat-filters'],
+    'cat-jacuzzi':      ['cat-pumps', 'cat-lights', 'cat-heaters'],
+    'cat-heaters':      ['cat-pumps', 'cat-controls', 'cat-jacuzzi'],
+    'cat-ladders':      ['cat-fittings', 'cat-cleaners', 'cat-spareparts'],
+    'cat-waterfalls':   ['cat-pumps', 'cat-lights', 'cat-fittings'],
+    'cat-spareparts':   ['cat-pumps', 'cat-filters', 'cat-fittings'],
+    'cat-controls':     ['cat-pumps', 'cat-lights', 'cat-transformers'],
+    'cat-pipeless':     ['cat-pumps', 'cat-filters', 'cat-chemicals'],
+    'cat-transformers': ['cat-lights', 'cat-controls', 'cat-fittings'],
+  };
+
+  // Expose RELATED_MAP globally so product detail pages can reference it
+  window._RELATED_MAP_REF = RELATED_MAP;
+
+  // Pure function — no DOM manipulation
+  window.getRelatedProducts = (currentCategory, allProducts) => {
+    if (!currentCategory || currentCategory === 'all' || !allProducts) return [];
+    const relatedCategories = RELATED_MAP[currentCategory] || [];
+    return allProducts
+      .filter(p => relatedCategories.includes(p.category))
+      .slice(0, 4);
+  };
+
+  // Render related products into #relatedProducts container
+  window.renderRelatedProducts = (products) => {
+    const container = document.getElementById('relatedProducts');
+    if (!container) return;
+    const section = container.closest('.related-section');
+    if (!products || products.length === 0) {
+      if (section) section.style.display = 'none';
+      return;
+    }
+    if (section) section.style.display = '';
+    const isAr = document.documentElement.lang === 'ar';
+    const BASE = window.BASE_PATH || '';
+    container.innerHTML = products.map(p => {
+      const pid   = p._id || p.id;
+      const title = p.name || p.title || '';
+      const img   = (() => {
+        const raw = Array.isArray(p.images) ? p.images[0] : (typeof p.images === 'string' ? p.images : null);
+        if (!raw) return p.image ? `/${p.image.replace(/^\//, '')}` : `/assets/images/logo.png`;
+        if (raw.startsWith('http')) return raw;
+        if (raw.startsWith('/uploads') || raw.startsWith('/images')) return 'https://maxpool-production.up.railway.app' + raw;
+        return `/${raw.replace(/^\//, '')}`;
+      })();
+      const quoteLabel = isAr ? 'طلب عرض سعر' : 'Request Quote';
+      const waLabel    = isAr ? 'واتساب' : 'WhatsApp';
+      return `
+        <div class="card product-card">
+          <div class="card-image-wrap" style="cursor:pointer;" onclick="window.location.href='${BASE}product.html?id=${pid}'">
+            <img src="${img}" alt="${title}" loading="lazy" style="width:100%;height:100%;object-fit:cover;">
+            <div class="card-badge">${p.brandName || p.brand || ''}</div>
+            <div class="card-overlay"></div>
+          </div>
+          <div class="card-content">
+            <h3 style="cursor:pointer;" onclick="window.location.href='${BASE}product.html?id=${pid}'">${title}</h3>
+            <div class="product-card-actions">
+              <button class="btn btn-primary btn-sm" onclick="addToCart('${pid}', '${title.replace(/'/g, "\\'")}')">
+                <i class="fa-solid fa-cart-plus"></i> ${quoteLabel}
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="handleProductWhatsApp('${title.replace(/'/g, "\\'")}')">
+                <i class="fa-brands fa-whatsapp"></i> ${waLabel}
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
   };
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -363,6 +408,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Render cards ────────────────────────────────────────────────────────
     const BASE = window.BASE_PATH || '';
+
+    // ── Benefit map: category → solution-selling text (EN + AR) ─────────
+    const benefitMap = {
+      en: {
+        'cat-pumps':        'Keep your pool water clean 24/7',
+        'cat-filters':      'Crystal-clear water all season long',
+        'cat-chemicals':    'Eliminate green water and bacteria for good',
+        'cat-lights':       'Transform your pool into a stunning night experience',
+        'cat-heaters':      'Enjoy your pool year-round regardless of weather',
+        'cat-cleaners':     'Save all your manual cleaning time',
+        'cat-jacuzzi':      'Add a luxury relaxation experience to your home',
+        'cat-fittings':     'Install your pool correctly the first time',
+        'cat-testing':      'Know your water quality before it becomes a problem',
+        'cat-controls':     'Control your entire pool from one place',
+        'cat-spareparts':   'Fix pool issues fast and at lower cost',
+        'cat-waterfalls':   'Add a premium aesthetic touch to your pool',
+        'cat-ladders':      'Safe entry and exit for the whole family',
+        'cat-pipeless':     'Complete filtration system without installation complexity',
+        'cat-transformers': 'Full protection for your pool equipment from power fluctuations',
+        'default':          'Complete solution for your pool'
+      },
+      ar: {
+        'cat-pumps':        'حافظ على نظافة مياه مسبحك على مدار الساعة',
+        'cat-filters':      'مياه صافية وخالية من الشوائب طوال الموسم',
+        'cat-chemicals':    'تخلص من المياه الخضراء والبكتيريا نهائيًا',
+        'cat-lights':       'حوّل مسبحك لتجربة ليلية مذهلة',
+        'cat-heaters':      'استمتع بمسبحك طوال العام بغض النظر عن الطقس',
+        'cat-cleaners':     'وفّر وقت التنظيف اليدوي بالكامل',
+        'cat-jacuzzi':      'أضف تجربة الاسترخاء الفاخرة لمنزلك',
+        'cat-fittings':     'ركّب مسبحك بشكل صحيح من أول مرة',
+        'cat-testing':      'اعرف حالة مياهك قبل أن تصبح مشكلة',
+        'cat-controls':     'تحكم في مسبحك بالكامل من مكان واحد',
+        'cat-spareparts':   'أصلح عطل مسبحك بسرعة وبتكلفة أقل',
+        'cat-waterfalls':   'أضف لمسة جمالية فاخرة لمسبحك',
+        'cat-ladders':      'دخول وخروج آمن لجميع أفراد العائلة',
+        'cat-pipeless':     'نظام ترشيح متكامل بدون تعقيدات التركيب',
+        'cat-transformers': 'حماية كاملة لمعدات مسبحك من تقلبات الكهرباء',
+        'default':          'حل متكامل لمسبحك'
+      }
+    };
+
+    function getBenefitText(category, lang) {
+      const map = benefitMap[lang] || benefitMap['en'];
+      return map[category] || map['default'];
+    }
+
+    // ── Helper: truncate description to 80 chars ─────────────────────────
+    const truncateDesc = (description, maxLen = 80) => {
+      if (!description) return '';
+      return description.length > maxLen ? description.slice(0, maxLen) + '...' : description;
+    };
+
+    // ── Helper: extract 3 benefit bullets from description ───────────────
+    const extractBenefits = (description, isAr = false) => {
+      const defaults = isAr
+        ? ['متوفر الآن', 'جودة عالية', 'مستخدم في المسابح التجارية']
+        : ['Available now', 'High quality', 'Used in commercial pools'];
+      if (!description || description.trim().length < 10) return defaults;
+      const parts = description.split(/[.,،]/).map(s => s.trim()).filter(s => s.length > 5);
+      return parts.length >= 3 ? parts.slice(0, 3) : defaults;
+    };
+
+    // Expose helpers globally for product detail pages
+    window.truncateDesc = truncateDesc;
+    window.extractBenefits = extractBenefits;
+
     const renderCards = (products) => {
       catalogGrid.innerHTML = '';
       const topBarText = document.querySelector('.catalog-top-bar p');
@@ -374,10 +485,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (noResultMsg) noResultMsg.style.display = 'none';
       const isAr = document.documentElement.lang === 'ar';
-      products.forEach(product => {
+      const cardsHTML = products.map(product => {
         const productId        = product._id || product.id;
         const productTitle     = product.name || product.title || '';
-        const productDesc      = product.description || '';
         const productImage     = (() => {
           const raw = Array.isArray(product.images) ? product.images[0] : (typeof product.images === 'string' ? product.images : null);
           if (!raw) return product.image ? `/${product.image.replace(/^\//, '')}` : `/assets/images/logo.png`;
@@ -386,8 +496,9 @@ document.addEventListener('DOMContentLoaded', () => {
           return `/${raw.replace(/^\//, '')}`;
         })();
         const productBrandName = product.brandName || product.brand || '';
-        const addLabel = isAr ? 'أضف للعرض' : 'Add to Quote';
-        catalogGrid.innerHTML += `
+        const quoteLabel = isAr ? 'أضف إلى السلة' : 'Add to Cart';
+        const waLabel    = isAr ? 'تحدث مع خبير' : 'Talk to an Expert';
+        return `
           <div class="card product-card mix show-block">
             <div class="card-image-wrap" style="cursor:pointer;" onclick="window.location.href='${BASE}product.html?id=${productId}'">
               <img src="${productImage}" alt="${productTitle}" loading="lazy" style="width:100%; height:100%; object-fit:cover; transition: transform 0.6s ease;">
@@ -396,14 +507,20 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="card-content">
               <h3 style="cursor:pointer;" onclick="window.location.href='${BASE}product.html?id=${productId}'" onmouseover="this.style.color='#004b87'" onmouseout="this.style.color=''"> ${productTitle} </h3>
-              <p>${productDesc}</p>
-              <button class="btn btn-primary btn-sm add-to-cart-btn" onclick="addToCart('${productId}', '${productTitle.replace(/'/g, "\\'")}')" style="width:100%; margin-top:auto; display:flex; justify-content:center; align-items:center; gap:6px; padding:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-                <i class="fa-solid fa-cart-plus"></i> ${addLabel}
-              </button>
+              <p>${getBenefitText(product.category, isAr ? 'ar' : 'en')}</p>
+              <div class="product-card-actions">
+                <button class="btn btn-primary btn-sm add-to-cart-btn" onclick="addToCart('${productId}', '${productTitle.replace(/'/g, "\\'")}')">
+                  <i class="fa-solid fa-cart-plus"></i> ${quoteLabel}
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="handleProductWhatsApp('${productTitle.replace(/'/g, "\\'")}')">
+                  <i class="fa-brands fa-whatsapp"></i>
+                </button>
+              </div>
             </div>
           </div>
         `;
-      });
+      }).join('');
+      catalogGrid.innerHTML = cardsHTML;
       if (topBarText) topBarText.innerText = isAr
         ? `عرض ${products.length} منتج (صفحة ${currentPage} من ${totalPages})`
         : `Showing ${products.length} product${products.length > 1 ? 's' : ''} (page ${currentPage} of ${totalPages})`;
@@ -412,19 +529,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── Fetch from API with server-side filtering + pagination ──────────────
     const fetchProducts = () => {
-      catalogGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#888;"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px;"></i></div>`;
-      const params = new URLSearchParams({ limit: PAGE_SIZE, page: currentPage });
-      // data-filter now sends the slug directly (e.g. "cat-pumps") or "all"
-      if (currentCategory !== 'all') params.set('category', currentCategory);
-      if (currentBrand    !== 'all') params.set('brand',    currentBrand);
-      if (currentSearch) params.set('search', currentSearch);
-      fetch(`${API_BASE}/api/products?${params.toString()}`)
-        .then(res => res.json())
-        .then(data => {
+      const _isArLang = document.documentElement.lang === 'ar';
+      catalogGrid.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:#888;">
+  <i class="fa-solid fa-spinner fa-spin" style="font-size:28px; display:block; margin-bottom:12px;"></i>
+  <p style="font-size:14px; margin:0;">${_isArLang ? 'جارٍ تحميل المنتجات...' : 'Loading products...'}</p>
+  <p id="retryHint" style="font-size:12px; color:#bbb; margin:6px 0 0;"></p>
+</div>`;
+      setTimeout(function() {
+        var hint = document.getElementById('retryHint');
+        if (hint) hint.textContent = _isArLang ? 'السيرفر بيصحى، ثواني...' : 'Server waking up, please wait...';
+      }, 5000);
+      window.MaxPoolAPI.getProducts({
+        limit: PAGE_SIZE, page: currentPage,
+        category: currentCategory, brand: currentBrand, search: currentSearch,
+      }).then(({ products, pagination }) => {
           if (loader) loader.remove();
-          const products = Array.isArray(data) ? data : (data.products || data.data || []);
-          totalPages = (data.pagination && data.pagination.pages) ? data.pagination.pages : 1;
+          totalPages = (pagination && pagination.pages) ? pagination.pages : 1;
           renderCards(products);
+          if (!window._productCache) window._productCache = {};
+          products.forEach(p => { if (p.category) window._productCache[p._id || p.id] = p; });
+          const cachedAll = Object.values(window._productCache);
+          window.renderRelatedProducts(window.getRelatedProducts(currentCategory, cachedAll));
         })
         .catch(() => {
           if (loader) loader.remove();

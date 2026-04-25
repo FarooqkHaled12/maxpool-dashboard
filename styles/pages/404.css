@@ -1,0 +1,51 @@
+/* ============================================================
+   404 ERROR PAGE STYLES
+   Shared by 404.html and ar/404.html
+   ============================================================ */
+
+.error-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 20px;
+  background: var(--color-bg-secondary);
+}
+
+.error-page-inner {
+  max-width: 500px;
+}
+
+.error-code {
+  font-size: clamp(6rem, 20vw, 12rem);
+  font-weight: 900;
+  color: var(--color-accent);
+  line-height: 1;
+  margin-bottom: 16px;
+  opacity: 0.15;
+}
+
+.error-title {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--color-bg-dark);
+  margin-bottom: 16px;
+}
+
+.error-sub {
+  font-size: 16px;
+  color: var(--color-text-muted);
+  margin-bottom: 40px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.error-links {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}

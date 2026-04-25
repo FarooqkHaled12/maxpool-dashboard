@@ -12,62 +12,36 @@
   <link rel="stylesheet" href="ar-styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+  <link rel="stylesheet" href="../styles/urgency.css">
 </head>
 <body>
-  <nav class="navbar">
-    <div class="container navbar-inner">
-      <a href="index.html" class="navbar-brand"><img src="../assets/images/logo.png" alt="شعار ماكس بول" style="height:48px;object-fit:contain;"></a>
-      <div class="navbar-links">
-        <a href="index.html">الرئيسية</a>
-        <a href="products.html" class="active">المعدات</a>
-        <a href="services.html">الخدمات</a>
-        <a href="about.html">من نحن</a>
-        <a href="contact.html">تواصل معنا</a>
-        <a href="../product.html" style="font-size:12px;opacity:0.7;border:1px solid currentColor;padding:3px 8px;border-radius:12px;">EN</a>
-      </div>
-      <button class="navbar-toggle" aria-label="فتح القائمة"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
+  <div id="navbar-placeholder"></div>
   <section style="padding:120px 0 80px;background:var(--color-bg-secondary);min-height:80vh;">
     <div class="container" id="productContainer">
       <div style="text-align:center;padding:100px;"><i class="fa-solid fa-spinner fa-spin fa-3x" style="color:#004b87;"></i><p style="margin-top:20px;color:#666;">جارٍ تحميل المواصفات التقنية...</p></div>
     </div>
   </section>
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-brand"><img src="../assets/images/logo.png" alt="شعار ماكس بول" style="height:60px;margin-bottom:16px;object-fit:contain;"><p>بنية تحتية متميزة للمسابح، معدات ومواد كيميائية وفق أعلى المعايير الأوروبية.</p></div>
-      <div class="footer-links"><h4>شركتنا</h4><a href="index.html">الرئيسية</a><a href="products.html">كتالوج المعدات</a><a href="services.html">الخدمات</a><a href="about.html">من نحن</a><a href="contact.html">تواصل معنا</a></div>
-      <div class="footer-contact"><h4>معلومات التواصل</h4><p><i class="fa-solid fa-phone"></i> 0100 620 5650</p></div>
+
+  <!-- المنتجات ذات الصلة -->
+  <section class="related-section" style="display:none; padding: 60px 0; background: var(--color-bg-primary); border-top: 1px solid var(--color-border);">
+    <div class="container">
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--color-text-primary); margin-bottom: 8px; text-align: right;">
+        <i class="fa-solid fa-layer-group" style="color: var(--color-accent); margin-left: 10px;"></i>
+        قد تحتاج أيضاً
+      </h2>
+      <p style="color: var(--color-text-muted); margin-bottom: 28px; font-size: 0.95rem; text-align: right;">منتجات تُستخدم عادةً مع هذا المنتج</p>
+      <div class="grid catalog-grid" id="relatedProducts"></div>
     </div>
-    <div class="container footer-bottom"><p>&copy; 2026 ماكس بول. جميع الحقوق محفوظة.</p></div>
-  </footer>
+  </section>
+  <div id="footer-placeholder"></div>
   <script>window.BASE_PATH = '../';</script>
   <script src="../js/config.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/modules/whatsapp.js"></script>
   <script src="../js/main.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const productId = params.get('id');
-      if (!productId) { document.getElementById('productContainer').innerHTML = "<h2 style='text-align:center;color:red;'>المنتج غير موجود</h2><p style='text-align:center;'><a href='products.html'>← العودة للمعدات</a></p>"; return; }
-      fetch(`${API_BASE}/api/products/id/${productId}`)
-        .then(res => res.json())
-        .then(responseData => {
-          const product = responseData.data || responseData;
-          if (!product || !product._id) { document.getElementById('productContainer').innerHTML = "<h2 style='text-align:center;color:red;'>المنتج غير موجود في قاعدة البيانات</h2>"; return; }
-          const t = product.name || product.title || '';
-          const img = (() => {
-            const raw = Array.isArray(product.images) ? product.images[0] : (typeof product.images === 'string' ? product.images : null);
-            if (!raw) return product.image ? `/${product.image.replace(/^\//, '')}` : '/assets/images/logo.png';
-            if (raw.startsWith('http')) return raw;
-            if (raw.startsWith('/uploads') || raw.startsWith('/images')) return 'https://maxpool-production.up.railway.app' + raw;
-            return `/${raw.replace(/^\//, '')}`;
-          })();
-          const pid = product._id || product.id;
-          document.title = t + " — ماكس بول مصر";
-          document.getElementById('productContainer').innerHTML = `<div style="display:flex;flex-wrap:wrap;gap:24px;background:white;padding:clamp(16px,4vw,40px);border-radius:20px;box-shadow:0 15px 30px rgba(0,0,0,0.05);"><div style="flex:1;min-width:min(300px,100%);border-radius:15px;overflow:hidden;background:#f9f9f9;display:flex;justify-content:center;align-items:center;"><img src="${img}" alt="${t}" style="max-width:100%;max-height:500px;object-fit:contain;"></div><div style="flex:1;min-width:min(300px,100%);display:flex;flex-direction:column;justify-content:center;text-align:right;"><span style="display:inline-block;background:rgba(0,75,135,0.1);color:#004b87;padding:5px 15px;border-radius:20px;font-weight:bold;font-size:14px;margin-bottom:15px;width:max-content;"><i class="fa-solid fa-tag"></i> ${product.brand||'ماكس بول'}</span><h1 style="font-size:36px;color:#222;margin-bottom:20px;">${t}</h1><p style="font-size:18px;line-height:1.6;color:#555;margin-bottom:30px;border-right:4px solid #004b87;padding-right:15px;">${product.description||''}</p><h3 style="margin-bottom:15px;border-bottom:1px solid #eee;padding-bottom:10px;"><i class="fa-solid fa-file-invoice"></i> المواصفات التقنية</h3><ul style="list-style:none;padding:0;margin-bottom:30px;color:#666;"><li style="padding:10px 0;border-bottom:1px solid #f5f5f5;"><strong>الفئة:</strong> ${(product.category||'').replace('cat-','').toUpperCase()}</li><li style="padding:10px 0;border-bottom:1px solid #f5f5f5;"><strong>المنشأ:</strong> معايير أوروبية / مستوردة</li><li style="padding:10px 0;border-bottom:1px solid #f5f5f5;"><strong>الضمان:</strong> ضمان سنة من الشركة المصنعة</li></ul><div style="display:flex;gap:15px;"><button onclick="addToCart('${pid}','${t.replace(/'/g,"\\'")}')" class="btn btn-primary btn-lg" style="flex:2;font-size:16px;"><i class="fa-solid fa-cart-plus"></i> أضف لعربة العروض</button><a href="https://wa.me/201006205650?text=مرحباً ماكس بول، أنا مهتم بـ: ${encodeURIComponent(t)}" target="_blank" class="btn btn-outline btn-lg" style="flex:1;text-align:center;padding:12px;color:#25D366;border-color:#25D366;"><i class="fa-brands fa-whatsapp"></i> استفسر</a></div></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:40px;"><div style="background:white;padding:25px;border-radius:15px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05);"><i class="fa-solid fa-shield-halved fa-2x" style="color:#004b87;margin-bottom:15px;"></i><h4>جودة مضمونة</h4><p style="color:#666;font-size:14px;">مختبر في ظروف الضغط القصوى.</p></div><div style="background:white;padding:25px;border-radius:15px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05);"><i class="fa-solid fa-truck-fast fa-2x" style="color:#004b87;margin-bottom:15px;"></i><h4>تسليم سريع</h4><p style="color:#666;font-size:14px;">متوفر في مستودعنا الرئيسي بالقاهرة.</p></div><div style="background:white;padding:25px;border-radius:15px;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,0.05);"><i class="fa-solid fa-headset fa-2x" style="color:#004b87;margin-bottom:15px;"></i><h4>دعم فني</h4><p style="color:#666;font-size:14px;">فريق هندسي متخصص لمساعدتك.</p></div></div>`;
-        })
-        .catch(() => { document.getElementById('productContainer').innerHTML = "<h2 style='text-align:center;color:red;'>تعذر الاتصال بالخادم.</h2>"; });
-    });
-  </script>
+  <script src="../js/leadTracker.js"></script>
+  <script src="../js/pages/product.js"></script>
+  <script src="../js/urgency.js" defer></script>
 </body>
 </html>

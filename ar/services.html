@@ -14,82 +14,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="../styles/main.css">
+  <link rel="stylesheet" href="../styles/pages/services.css">
   <link rel="stylesheet" href="ar-styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+  <link rel="stylesheet" href="../styles/urgency.css">
 </head>
 
 <body>
-  <nav class="navbar">
-    <div class="container navbar-inner">
-      <a href="index.html" class="navbar-brand" style="display:flex;align-items:center;">
-        <img src="../assets/images/logo.png" alt="شعار ماكس بول" style="height:48px;object-fit:contain;">
-      </a>
-      <div class="navbar-links">
-        <a href="index.html"><i class="fa-solid fa-house"></i><span>الرئيسية</span></a>
-        <a href="products.html"><i class="fa-solid fa-cube"></i><span>المعدات</span></a>
-        <a href="services.html" class="active"><i class="fa-solid fa-wrench"></i><span>الخدمات</span></a>
-        <a href="about.html"><i class="fa-solid fa-circle-info"></i><span>من نحن</span></a>
-        <a href="contact.html"><i class="fa-solid fa-envelope"></i><span>تواصل معنا</span></a>
-        <a href="../services.html" style="font-size:12px;opacity:0.7;border:1px solid currentColor;padding:3px 8px;border-radius:12px;">EN</a>
-      </div>
-      <button class="navbar-toggle" aria-label="فتح القائمة"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
-
-
-  <style>
-    .srv-hero{background:linear-gradient(135deg,#001d3d 0%,#003566 50%,#0077b6 100%);padding:140px 0 80px;position:relative;overflow:hidden;}
-    .srv-hero-inner{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-    .srv-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,180,216,0.15);border:1px solid rgba(0,180,216,0.35);color:#90e0ef;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:999px;margin-bottom:20px;}
-    .srv-hero h1{font-size:clamp(2.2rem,4vw,3.4rem);font-weight:800;color:#fff;line-height:1.15;margin:0 0 20px;}
-    .srv-hero-desc{color:rgba(255,255,255,0.7);font-size:17px;line-height:1.8;margin:0 0 32px;}
-    .srv-hero-stats{display:flex;gap:32px;flex-wrap:wrap;}
-    .srv-hero-stat strong{display:block;font-size:28px;font-weight:900;color:#00b4d8;line-height:1;}
-    .srv-hero-stat span{font-size:13px;color:rgba(255,255,255,0.55);}
-    .srv-hero-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-    .srv-hero-card{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:24px 20px;backdrop-filter:blur(10px);}
-    .srv-hero-card i{font-size:28px;margin-bottom:12px;display:block;}
-    .srv-hero-card h4{font-size:15px;font-weight:700;color:#fff;margin:0 0 6px;}
-    .srv-hero-card p{font-size:13px;color:rgba(255,255,255,0.55);margin:0;}
-    @media(max-width:900px){.srv-hero-inner{grid-template-columns:1fr;gap:40px;}}
-    .srv-list{padding:100px 0;background:#fff;}
-    .srv-list-hdr{text-align:center;max-width:640px;margin:0 auto 72px;}
-    .srv-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,119,182,0.08);border:1px solid rgba(0,119,182,0.2);color:#0077b6;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:999px;margin-bottom:16px;}
-    .srv-list-hdr h2{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;color:#001d3d;margin:0 0 14px;}
-    .srv-row{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:80px;padding-bottom:80px;border-bottom:1px solid #e0f2fe;}
-    .srv-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-    .srv-row.rev .srv-vis{order:2;}.srv-row.rev .srv-txt{order:1;}
-    .srv-vis{border-radius:24px;overflow:hidden;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;}
-    .srv-vis i.bg-icon{font-size:120px;opacity:0.18;color:#fff;position:absolute;}
-    .srv-vis-lbl{position:absolute;bottom:20px;right:20px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);backdrop-filter:blur(8px);color:#fff;font-size:13px;font-weight:700;padding:8px 16px;border-radius:999px;}
-    .srv-num{font-size:80px;font-weight:900;color:#e0f2fe;line-height:1;margin-bottom:-8px;}
-    .srv-txt h3{font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;color:#001d3d;margin:0 0 14px;}
-    .srv-txt p{color:#64748B;font-size:16px;line-height:1.8;margin:0 0 22px;}
-    .srv-checks{list-style:none;padding:0;margin:0 0 26px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-    .srv-checks li{display:flex;align-items:center;gap:8px;font-size:14px;color:#334155;font-weight:500;}
-    .srv-checks li i{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;flex-shrink:0;}
-    .srv-link{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;padding:10px 22px;border-radius:999px;text-decoration:none;transition:all 0.3s;}
-    @media(max-width:900px){.srv-row{grid-template-columns:1fr;gap:32px;}.srv-checks{grid-template-columns:1fr;}}
-    .srv-proc{padding:100px 0;background:#001d3d;}
-    .srv-proc-hdr{text-align:center;margin-bottom:64px;}
-    .srv-proc-hdr h2{color:#fff;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;margin:0 0 12px;}
-    .srv-proc-hdr p{color:rgba(255,255,255,0.6);font-size:16px;margin:0;}
-    .srv-timeline{display:grid;grid-template-columns:repeat(4,1fr);}
-    .srv-step{text-align:center;padding:0 20px;}
-    .srv-step-n{width:70px;height:70px;background:linear-gradient(135deg,#0077b6,#00b4d8);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;margin:0 auto 24px;}
-    .srv-step h4{font-size:17px;font-weight:700;color:#fff;margin:0 0 10px;}
-    .srv-step p{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;margin:0;}
-    @media(max-width:768px){.srv-timeline{grid-template-columns:1fr 1fr;gap:40px;}}
-    .srv-clients{padding:100px 0;background:#f4faff;}
-    .srv-clients-hdr{text-align:center;max-width:600px;margin:0 auto 56px;}
-    .srv-clients-hdr h2{font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;color:#001d3d;margin:0 0 14px;}
-    .srv-clients-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;}
-    .srv-client{background:#fff;border-radius:20px;padding:32px 20px;text-align:center;box-shadow:0 4px 20px rgba(0,29,61,0.05);border:1px solid #e0f2fe;transition:all 0.3s;}
-    .srv-client i{font-size:36px;color:#0077b6;margin-bottom:16px;display:block;}
-    .srv-client strong{display:block;font-size:16px;font-weight:700;color:#001d3d;margin-bottom:6px;}
-    .srv-client span{font-size:13px;color:#64748B;}
-  </style>
+  <div id="navbar-placeholder"></div>
 
   <header class="srv-hero">
     <div class="container">
@@ -204,16 +137,13 @@
     <div class="seo-links-col"><h4>النسخة الإنجليزية</h4><ul><li><a href="../services.html">Pool Services Egypt</a></li><li><a href="../products.html">Pool Equipment Catalog</a></li><li><a href="../about.html">About Max Pool Egypt</a></li><li><a href="../contact.html">Contact Us</a></li></ul></div>
   </div></div></section>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-brand"><img src="../assets/images/logo.png" alt="شعار ماكس بول" style="height:60px;margin-bottom:16px;object-fit:contain;"><p>بنية تحتية متميزة للمسابح، معدات ومواد كيميائية وفق أعلى المعايير الأوروبية.</p></div>
-      <div class="footer-links"><h4>شركتنا</h4><a href="index.html">الرئيسية</a><a href="products.html">كتالوج المعدات</a><a href="services.html">الخدمات</a><a href="about.html">من نحن</a><a href="contact.html">تواصل معنا</a></div>
-      <div class="footer-links"><h4>المدونة</h4><a href="../blog/green-pool-water.html">علاج المياه الخضراء</a><a href="../blog/how-to-clean-pool.html">كيفية تنظيف المسبح</a><a href="../blog/pool-pump-not-working.html">إصلاح طلمبة المسبح</a></div>
-      <div class="footer-contact"><h4>معلومات التواصل</h4><p><i class="fa-solid fa-phone"></i> 0100 620 5650</p><div class="social-links"><a href="https://www.facebook.com/maxpoool" target="_blank"><i class="fa-brands fa-facebook"></i> @maxpool</a></div></div>
-    </div>
-    <div class="container footer-bottom"><p>&copy; 2026 ماكس بول. جميع الحقوق محفوظة.</p></div>
-  </footer>
+  <div id="footer-placeholder"></div>
   <script src="../js/config.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/layout.js"></script>
+  <script src="../js/page-loader.js"></script>
+  <script src="../js/modules/whatsapp.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/urgency.js" defer></script>
 </body>
 </html>

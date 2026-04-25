@@ -1,4 +1,4 @@
-﻿/* Catalog + Shared Sections — Max Pool Corporate B2B Design System v2 */
+/* Catalog + Shared Sections � Max Pool Corporate B2B Design System v2 */
 
 .section { padding: var(--space-20) 0; background: var(--color-bg-primary); }
 .section--alt { background: var(--color-bg-secondary); }
@@ -108,3 +108,61 @@
 }
 
 .filter-bar__select:focus { outline: none; border-color: var(--color-accent); }
+
+/* -- Trust Bar -- */
+.trust-bar {
+  background: #f0f9ff;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) 0;
+}
+
+.trust-bar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.trust-badge i {
+  color: var(--color-accent);
+  font-size: var(--font-size-base);
+}
+
+/* -- Sticky CTA Bar (mobile only) -- */
+.sticky-cta-bar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .sticky-cta-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9997;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #fff;
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 -4px 16px rgba(0, 29, 61, 0.08);
+  }
+
+  .sticky-cta-bar .btn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+

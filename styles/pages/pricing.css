@@ -1,0 +1,468 @@
+/* ============================================================
+   PRICING PAGES STYLES
+   ============================================================ */
+
+/* Price Hero Section */
+.price-hero {
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+  color: var(--color-text-inverse);
+  padding: var(--space-20) 0 var(--space-16);
+  text-align: center;
+}
+
+/* Price Hero Variants */
+.price-hero.construction {
+  background: linear-gradient(135deg, #7c3aed, #9f5cf7);
+}
+
+.price-hero.maintenance {
+  background: linear-gradient(135deg, #0d7a3e, #10a050);
+}
+
+.price-hero .container {
+  max-width: 800px;
+}
+
+.price-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: rgba(255, 255, 255, 0.15);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.price-hero h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 900;
+  line-height: 1.3;
+  margin: 0 0 16px;
+}
+
+.price-hero p {
+  font-size: 16px;
+  opacity: 0.85;
+  line-height: var(--line-height-base);
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+/* Price Layout */
+.price-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 48px;
+  padding: 64px 0;
+}
+
+.price-content h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #001d3d;
+  margin: 36px 0 14px;
+  padding-right: 14px;
+  border-right: 4px solid #0077b6;
+}
+
+.price-content p {
+  font-size: 16px;
+  color: #334155;
+  line-height: 1.9;
+  margin: 0 0 18px;
+}
+
+.price-content ul {
+  padding-right: 20px;
+  margin: 0 0 18px;
+}
+
+.price-content ul li {
+  font-size: 15px;
+  color: #334155;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+.price-content a {
+  color: #0077b6;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid #bae6fd;
+}
+
+.price-content a:hover {
+  color: #00b4d8;
+}
+
+/* Price Table */
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 29, 61, 0.08);
+}
+
+.price-table th {
+  background: linear-gradient(135deg, #7c3aed, #9f5cf7);
+  color: #fff;
+  padding: 14px 16px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.price-table td {
+  padding: 14px 16px;
+  font-size: 14px;
+  color: #334155;
+  border-bottom: 1px solid #e0f2fe;
+}
+
+.price-table tr:last-child td {
+  border-bottom: none;
+}
+
+.price-table tr:nth-child(even) td {
+  background: #f8fafc;
+}
+
+.price-table td:last-child {
+  font-weight: 700;
+  color: #7c3aed;
+}
+
+/* Price Cards (for maintenance page) */
+.price-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.price-card {
+  background: #fff;
+  border: 2px solid #e0f2fe;
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.price-card:hover {
+  border-color: #0077b6;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 119, 182, 0.12);
+}
+
+.price-card.featured {
+  border-color: #0077b6;
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+}
+
+.price-card h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #001d3d;
+  margin: 0 0 8px;
+}
+
+.price-card .price {
+  font-size: 2rem;
+  font-weight: 900;
+  color: #0077b6;
+  margin: 12px 0;
+  line-height: 1;
+}
+
+.price-card .price span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748B;
+}
+
+.price-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.price-card ul li {
+  font-size: 13px;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.price-card ul li::before {
+  content: "✓";
+  color: #0d7a3e;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.price-card a {
+  display: block;
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin-top: 16px;
+  transition: all 0.3s;
+}
+
+.price-card a:hover {
+  transform: translateY(-2px);
+}
+
+/* FAQ Items */
+.faq-item {
+  background: #f8fafc;
+  border: 1px solid #e0f2fe;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.faq-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #001d3d;
+  margin: 0 0 8px;
+}
+
+.faq-item p {
+  font-size: 14px;
+  color: #64748B;
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* Price CTA Section */
+.pcta {
+  background: linear-gradient(135deg, #001d3d, #003566);
+  border-radius: 20px;
+  padding: 28px;
+  margin: 28px 0;
+  text-align: center;
+}
+
+.pcta h3 {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.pcta p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  margin: 0 0 18px;
+}
+
+.pcta-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pcta-btns a {
+  padding: 11px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.pcta-btns a.p1 {
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  color: #fff;
+}
+
+.pcta-btns a.wa {
+  background: #25D366;
+  color: #fff;
+}
+
+.pcta-btns a:hover {
+  transform: translateY(-2px);
+}
+
+/* Blog Sidebar */
+.blog-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sw {
+  background: #fff;
+  border: 1px solid #e0f2fe;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.sw h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0077b6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e0f2fe;
+}
+
+.sw ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.sw ul li a {
+  font-size: 13px;
+  color: #334155;
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.sw ul li a::before {
+  content: "←";
+  color: #00b4d8;
+  font-size: 10px;
+}
+
+.sw ul li a:hover {
+  color: #0077b6;
+}
+
+.sw-cta {
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  border-radius: 16px;
+  padding: 22px;
+  text-align: center;
+}
+
+.sw-cta h4 {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  margin: 0 0 8px;
+}
+
+.sw-cta p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 13px;
+  margin: 0 0 14px;
+}
+
+.sw-cta a {
+  display: block;
+  background: #fff;
+  color: #0077b6;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-bottom: 8px;
+}
+
+.sw-cta a.wa {
+  background: #25D366;
+  color: #fff;
+}
+
+/* SEO Links Bottom */
+.seo-lb {
+  padding: 40px 0;
+  background: #f8fafc;
+  border-top: 1px solid #e0f2fe;
+}
+
+.seo-lb .slg {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.seo-lb h4 {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0077b6;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e0f2fe;
+}
+
+.seo-lb ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.seo-lb ul li a {
+  font-size: 13px;
+  color: #334155;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.seo-lb ul li a:hover {
+  color: #0077b6;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .price-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-sidebar {
+    order: -1;
+  }
+  
+  .price-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .seo-lb .slg {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Price Disclaimer */
+.price-disclaimer {
+  font-size: 12px;
+  color: #64748B;
+  font-style: italic;
+  margin: 16px 0;
+}

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="assets/images/logo.png">
-  <title>Product Details — Max Pool Egypt | Swimming Pool Equipment</title>
-  <meta name="description" content="View detailed specifications and technical information for Max Pool Egypt swimming pool equipment. Request a quote directly via WhatsApp.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.max-pool-eg.com/product.html">
+  <title>Swimming Pool Equipment Details — Max Pool Egypt</title>
+  <meta name="description" content="View detailed specifications, technical information, and pricing for Max Pool Egypt swimming pool equipment. Request a quote directly via WhatsApp or add to your quotation list.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="https://www.max-pool-eg.com/products.html">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" media="print" onload="this.media='all'">
@@ -15,24 +15,11 @@
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+  <link rel="stylesheet" href="styles/urgency.css">
 </head>
 <body>
   <!-- Navigation -->
-  <nav class="navbar">
-    <div class="container navbar-inner">
-      <a href="index.html" class="navbar-brand">
-        <img src="assets/images/logo.png" alt="Max Pool Logo" style="height: 48px;">
-      </a>
-      <div class="navbar-links">
-        <a href="index.html" data-i18n="nav.home"><i class="fa-solid fa-house"></i><span>Home</span></a>
-        <a href="products.html" class="active" data-i18n="nav.equipment"><i class="fa-solid fa-cube"></i><span>Equipment</span></a>
-        <a href="services.html" data-i18n="nav.services"><i class="fa-solid fa-wrench"></i><span>Services</span></a>
-        <a href="about.html" data-i18n="nav.about"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a>
-        <a href="contact.html" data-i18n="nav.contact"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
-      </div>
-      <button class="navbar-toggle" aria-label="Toggle Navigation"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
+  <div id="navbar-placeholder"></div>
 
   <!-- Product Details Section -->
   <section style="padding: 120px 0 80px; background:var(--color-bg-secondary); min-height: 80vh;">
@@ -44,121 +31,28 @@
     </div>
   </section>
 
+  <!-- Related / Cross-Sell Products -->
+  <section class="related-section" style="display:none; padding: 60px 0; background: var(--color-bg-primary); border-top: 1px solid var(--color-border);">
+    <div class="container">
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--color-text-primary); margin-bottom: 8px;">
+        <i class="fa-solid fa-layer-group" style="color: var(--color-accent); margin-right: 10px;"></i>
+        You may also need
+      </h2>
+      <p style="color: var(--color-text-muted); margin-bottom: 28px; font-size: 0.95rem;">Products commonly used together with this item</p>
+      <div class="grid catalog-grid" id="relatedProducts"></div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-        <img src="assets/images/logo.png" alt="Max Pool Logo" style="height:60px;margin-bottom:16px;object-fit:contain;">
-        <p>Premium pool infrastructure, equipment, and chemical treatments meeting the highest European Standards.</p>
-      </div>
-      <div class="footer-links">
-        <h4>Our Company</h4>
-        <a href="index.html">Home</a>
-        <a href="products.html">Equipment Catalog</a>
-        <a href="services.html">Services</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact Us</a>
-      </div>
-      <div class="footer-links">
-        <h4>Pool Blog</h4>
-        <a href="blog/green-pool-water.html">Green Pool Water</a>
-        <a href="blog/how-to-clean-pool.html">How to Clean a Pool</a>
-        <a href="blog/pool-pump-not-working.html">Pool Pump Not Working</a>
-      </div>
-      <div class="footer-contact">
-        <h4>Contact Information</h4>
-        <p><i class="fa-solid fa-phone"></i> 0100 620 5650</p>
-        <p><i class="fa-solid fa-globe"></i> www.max-pool-eg.com</p>
-        <div class="social-links"><a href="https://www.facebook.com/maxpoool" target="_blank" rel="noopener"><i class="fa-brands fa-facebook"></i> @maxpool2019</a></div>
-      </div>
-    </div>
-    <div class="container footer-bottom">
-      <p>&copy; 2026 Max Pool. All rights reserved.</p>
-    </div>
-  </footer>
+  <div id="footer-placeholder"></div>
 
   <script src="js/config.js"></script>
+  <script src="js/core/api.js"></script>
+  <script src="js/layout.js"></script>
+  <script src="js/modules/whatsapp.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const productId = params.get('id');
-
-      if(!productId) {
-        document.getElementById('productContainer').innerHTML = "<h2 style='text-align:center; color:red;'>Product Not Found</h2><p style='text-align:center;'><a href='products.html'>← Back to Products</a></p>";
-        return;
-      }
-
-      fetch(`${API_BASE}/api/products/id/${productId}`)
-        .then(res => res.json())
-        .then(responseData => {
-          const product = responseData.data || responseData;
-          if (!product || !product._id) {
-            document.getElementById('productContainer').innerHTML = "<h2 style='text-align:center; color:red;'>Product Not Found in Database</h2>";
-            return;
-          }
-
-          const productTitle = product.name || product.title || '';
-          const productImage = (() => {
-            const raw = Array.isArray(product.images) ? product.images[0] : (typeof product.images === 'string' ? product.images : null);
-            if (!raw) return product.image ? `/${product.image.replace(/^\//, '')}` : '/assets/images/logo.png';
-            if (raw.startsWith('http')) return raw;
-            if (raw.startsWith('/uploads') || raw.startsWith('/images')) return 'https://maxpool-production.up.railway.app' + raw;
-            return `/${raw.replace(/^\//, '')}`;
-          })();
-          const productId_   = product._id || product.id;
-
-          document.title = productTitle + " — Max Pool";
-
-          const html = `
-            <div style="display:flex; flex-wrap:wrap; gap:24px; background:white; padding:clamp(16px,4vw,40px); border-radius:20px; box-shadow:0 15px 30px rgba(0,0,0,0.05);">
-              <div style="flex:1; min-width:min(300px,100%); border-radius:15px; overflow:hidden; background:#f9f9f9; display:flex; justify-content:center; align-items:center;">
-                <img src="${productImage}" alt="${productTitle}" style="max-width:100%; max-height:500px; object-fit:contain;">
-              </div>
-              <div style="flex:1; min-width:min(300px,100%); display:flex; flex-direction:column; justify-content:center;">
-                <span style="display:inline-block; background:rgba(0,75,135,0.1); color:#004b87; padding:5px 15px; border-radius:20px; font-weight:bold; font-size:14px; margin-bottom:15px; width:max-content;"><i class="fa-solid fa-tag"></i> ${product.brand || 'Max Pool Standard'}</span>
-                <h1 style="font-size:36px; color:#222; margin-bottom:20px;">${productTitle}</h1>
-                <p style="font-size:18px; line-height:1.6; color:#555; margin-bottom:30px; border-left: 4px solid #004b87; padding-left:15px;">${product.description || ''}</p>
-                
-                <h3 style="margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;"><i class="fa-solid fa-file-invoice"></i> Technical Specifications</h3>
-                <ul style="list-style:none; padding:0; margin-bottom:30px; color:#666;">
-                  <li style="padding:10px 0; border-bottom:1px solid #f5f5f5;"><strong>Category:</strong> ${(product.category || '').replace('cat-', '').toUpperCase()}</li>
-                  <li style="padding:10px 0; border-bottom:1px solid #f5f5f5;"><strong>Origin:</strong> European / Imported Standards</li>
-                  <li style="padding:10px 0; border-bottom:1px solid #f5f5f5;"><strong>Warranty:</strong> 1 Year Manufacturer Warranty</li>
-                </ul>
-
-                <div style="display:flex; gap:15px;">
-                  <button onclick="addToCart('${productId_}', '${productTitle.replace(/'/g, "\\'")}')" class="btn btn-primary btn-lg" style="flex:2; font-size:16px;"><i class="fa-solid fa-cart-plus"></i> Add to Quote Cart</button>
-                  <a href="https://wa.me/201006205650?text=Hello%20Max%20Pool%2C%20I%20am%20interested%20in%3A%20${encodeURIComponent(productTitle)}" target="_blank" class="btn btn-outline btn-lg" style="flex:1; text-align:center; padding:12px; color:#25D366; border-color:#25D366;"><i class="fa-brands fa-whatsapp"></i> Ask</a>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Features Row -->
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:20px; margin-top:40px;">
-                <div style="background:white; padding:25px; border-radius:15px; text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.05);">
-                    <i class="fa-solid fa-shield-halved fa-2x" style="color:#004b87; margin-bottom:15px;"></i>
-                    <h4>Guaranteed Quality</h4>
-                    <p style="color:#666; font-size:14px;">Tested against extreme pressures.</p>
-                </div>
-                <div style="background:white; padding:25px; border-radius:15px; text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.05);">
-                    <i class="fa-solid fa-truck-fast fa-2x" style="color:#004b87; margin-bottom:15px;"></i>
-                    <h4>Fast Fulfillment</h4>
-                    <p style="color:#666; font-size:14px;">Available in our main Cairo warehouse.</p>
-                </div>
-                <div style="background:white; padding:25px; border-radius:15px; text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.05);">
-                    <i class="fa-solid fa-headset fa-2x" style="color:#004b87; margin-bottom:15px;"></i>
-                    <h4>Technical Support</h4>
-                    <p style="color:#666; font-size:14px;">Expert engineering team to assist you.</p>
-                </div>
-            </div>
-          `;
-          document.getElementById('productContainer').innerHTML = html;
-        })
-        .catch(() => {
-          document.getElementById('productContainer').innerHTML = "<h2 style='text-align:center; color:red;'>Could not connect to server. Make sure the backend is running on port 5001.</h2>";
-        });
-    });
-  </script>
+  <script src="js/leadTracker.js"></script>
+  <script src="js/pages/product.js"></script>
+  <script src="js/urgency.js" defer></script>
 </body>
 </html>

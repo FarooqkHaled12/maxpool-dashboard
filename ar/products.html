@@ -13,29 +13,59 @@
   <link rel="stylesheet" href="../styles/main.css">
   <link rel="stylesheet" href="ar-styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../styles/urgency.css">
+  <link rel="stylesheet" href="../styles/pages/home.css">
+    <link rel="stylesheet" href="../styles/pages/products-solutions.css">
 </head>
 <body>
-  <nav class="navbar">
-    <div class="container navbar-inner">
-      <a href="index.html" class="navbar-brand" style="display:flex;align-items:center;"><img src="../assets/images/logo.png" alt="شعار ماكس بول" style="height:48px;object-fit:contain;"></a>
-      <div class="navbar-links">
-        <a href="index.html"><i class="fa-solid fa-house"></i><span>الرئيسية</span></a>
-        <a href="products.html" class="active"><i class="fa-solid fa-cube"></i><span>المعدات</span></a>
-        <a href="services.html"><i class="fa-solid fa-wrench"></i><span>الخدمات</span></a>
-        <a href="about.html"><i class="fa-solid fa-circle-info"></i><span>من نحن</span></a>
-        <a href="contact.html"><i class="fa-solid fa-envelope"></i><span>تواصل معنا</span></a>
-        <a href="../products.html" style="font-size:12px;opacity:0.7;border:1px solid currentColor;padding:3px 8px;border-radius:12px;">EN</a>
-      </div>
-      <button class="navbar-toggle" aria-label="فتح القائمة"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
+  <div id="navbar-placeholder"></div>
 
   <header class="about-hero prod-hero">
     <div class="container">
-      <h1 class="hero-title text-gradient">كتالوج المعدات</h1>
-      <p class="hero-subtitle">مضخات صناعية، ترشيح متقدم، إضاءة وإكسسوارات.</p>
+      <h1 class="hero-title text-gradient">حل مشكلة مسبحك</h1>
+      <p class="hero-subtitle">من المياه الخضراء للإضاءة المثالية — اعثر على الحل المناسب لمسبحك اليوم.</p>
     </div>
   </header>
+
+  <section class="trust-bar">
+    <div class="container trust-bar-inner">
+      <div class="trust-badge"><i class="fa-solid fa-users"></i> <span>موثوق من أصحاب المسابح</span></div>
+      <div class="trust-badge"><i class="fa-solid fa-bolt"></i> <span>استجابة سريعة</span></div>
+      <div class="trust-badge"><i class="fa-solid fa-star"></i> <span>مواد عالية الجودة</span></div>
+    </div>
+  </section>
+
+  <section id="solutions-section" class="solutions-section">
+  <div class="container">
+    <h2 class="solutions-heading">ما هي مشكلة مسبحك؟</h2>
+    <div class="solutions-grid">
+      <div class="solution-card" data-categories="cat-chemicals">
+        <div class="solution-icon"><i class="fa-solid fa-flask-vial"></i></div>
+        <h3 class="solution-title">مياه خضراء؟</h3>
+        <p class="solution-desc">تخلص من الطحالب والبكتيريا بسرعة بالكيماويات المناسبة.</p>
+        <button class="solution-btn">اعرض الحل</button>
+      </div>
+      <div class="solution-card" data-categories="cat-pumps">
+        <div class="solution-icon"><i class="fa-solid fa-water"></i></div>
+        <h3 class="solution-title">بتبني مسبح؟</h3>
+        <p class="solution-desc">كل ما تحتاجه من طلمبات وأنظمة ترشيح.</p>
+        <button class="solution-btn">اعرض الحل</button>
+      </div>
+      <div class="solution-card" data-categories="cat-cleaners">
+        <div class="solution-icon"><i class="fa-solid fa-broom"></i></div>
+        <h3 class="solution-title">محتاج صيانة؟</h3>
+        <p class="solution-desc">منظفات أوتوماتيكية توفر عليك ساعات كل أسبوع.</p>
+        <button class="solution-btn">اعرض الحل</button>
+      </div>
+      <div class="solution-card" data-categories="cat-lights">
+        <div class="solution-icon"><i class="fa-solid fa-lightbulb"></i></div>
+        <h3 class="solution-title">إضاءة وديكور؟</h3>
+        <p class="solution-desc">حوّل مسبحك لتجربة ليلية مذهلة.</p>
+        <button class="solution-btn">اعرض الحل</button>
+      </div>
+    </div>
+  </div>
+</section>
 
   <section class="catalog-page">
     <div class="container catalog-layout">
@@ -85,10 +115,22 @@
           <h3>لا توجد منتجات تطابق اختيارك</h3>
           <p>يرجى مسح الفلاتر لعرض جميع المنتجات.</p>
         </div>
-        <div class="grid catalog-grid" id="catalogGrid">
+        <div class="catalog-grid" id="catalogGrid">
           <div id="loader" class="catalog-loader"><i class="fa-solid fa-spinner fa-spin"></i> جارٍ تحميل الكتالوج...</div>
         </div>
       </main>
+    </div>
+  </section>
+
+  <!-- المنتجات ذات الصلة -->
+  <section class="related-section" style="display:none; padding: 60px 0; background: var(--color-bg-secondary); border-top: 1px solid var(--color-border);">
+    <div class="container">
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--color-text-primary); margin-bottom: 8px; text-align: right;">
+        <i class="fa-solid fa-layer-group" style="color: var(--color-accent); margin-left: 10px;"></i>
+        قد تحتاج أيضاً
+      </h2>
+      <p style="color: var(--color-text-muted); margin-bottom: 28px; font-size: 0.95rem; text-align: right;">منتجات تُستخدم عادةً مع اختيارك</p>
+      <div class="catalog-grid" id="relatedProducts"></div>
     </div>
   </section>
 
@@ -99,16 +141,15 @@
     <div class="seo-links-col"><h4>النسخة الإنجليزية</h4><ul><li><a href="../products.html">Pool Equipment Catalog</a></li><li><a href="../services.html">Pool Services Egypt</a></li><li><a href="../about.html">About Max Pool Egypt</a></li><li><a href="../contact.html">Contact Us</a></li></ul></div>
   </div></div></section>
 
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-brand"><img src="../assets/images/logo.png" alt="شعار ماكس بول" style="height:60px;margin-bottom:16px;object-fit:contain;"><p>بنية تحتية متميزة للمسابح، معدات ومواد كيميائية وفق أعلى المعايير الأوروبية.</p></div>
-      <div class="footer-links"><h4>شركتنا</h4><a href="index.html">الرئيسية</a><a href="products.html">كتالوج المعدات</a><a href="services.html">الخدمات</a><a href="about.html">من نحن</a><a href="contact.html">تواصل معنا</a></div>
-      <div class="footer-contact"><h4>معلومات التواصل</h4><p><i class="fa-solid fa-phone"></i> 0100 620 5650</p><div class="social-links"><a href="https://www.facebook.com/maxpoool" target="_blank"><i class="fa-brands fa-facebook"></i> @maxpool</a></div></div>
-    </div>
-    <div class="container footer-bottom"><p>&copy; 2026 ماكس بول. جميع الحقوق محفوظة.</p></div>
-  </footer>
+  <div id="footer-placeholder"></div>
   <script src="../js/config.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/layout.js"></script>
   <script>window.BASE_PATH = '../';</script>
+  <script src="../js/modules/whatsapp.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/leadTracker.js"></script>
+  <script src="../js/urgency.js" defer></script>
+  <script src="../js/pages/products-solutions.js" defer></script>
 </body>
 </html>

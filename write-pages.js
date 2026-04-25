@@ -1,1 +1,0 @@
-﻿const fs = require("fs"); function w(f,b){fs.writeFileSync(f,Buffer.from(b,"base64").toString("utf8"),{encoding:"utf8"});console.log("Written:",f);} 

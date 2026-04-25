@@ -59,6 +59,8 @@ export const updatePage = (id, data)  => fetch(`${BASE}/pages/${id}`,    { metho
 export const seedPages  = ()          => fetch(`${BASE}/pages/seed/all`, { method: 'POST', headers: h() }).then(handle);
 
 // Leads
-export const getLeads         = ()          => fetch(`${BASE}/leads`,       { headers: h() }).then(handle);
-export const updateLeadStatus = (id, data) => fetch(`${BASE}/leads/${id}`, { method: 'PATCH',  headers: h(), body: JSON.stringify(data) }).then(handle);
-export const deleteLead       = (id)       => fetch(`${BASE}/leads/${id}`, { method: 'DELETE', headers: h() }).then(handle);
+export const getLeads         = ()          => fetch(`${BASE}/leads`,        { headers: h() }).then(handle);
+export const getLead          = (id)        => fetch(`${BASE}/leads/${id}`,   { headers: h() }).then(handle);
+export const getLeadStats     = ()          => fetch(`${BASE}/leads/stats`,   { headers: h() }).then(handle);
+export const updateLeadStatus = (id, data)  => fetch(`${BASE}/leads/${id}`,   { method: 'PATCH',  headers: h(), body: JSON.stringify(data) }).then(handle);
+export const deleteLead       = (id)        => fetch(`${BASE}/leads/${id}`,   { method: 'DELETE', headers: h() }).then(handle);

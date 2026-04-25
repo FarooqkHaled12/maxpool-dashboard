@@ -8,46 +8,30 @@
   <meta name="description" content="The page you're looking for doesn't exist. Browse Max Pool Egypt's swimming pool equipment catalog or contact our team.">
   <meta name="robots" content="noindex, follow">
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/pages/404.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="container navbar-inner">
-      <a href="index.html" class="navbar-brand" style="display:flex; align-items:center;">
-        <img src="assets/images/logo.png" alt="Max Pool Logo" style="height: 48px; object-fit: contain;">
-      </a>
-      <div class="navbar-links">
-        <a href="index.html" data-i18n="nav.home"><i class="fa-solid fa-house"></i><span>Home</span></a>
-        <a href="products.html" data-i18n="nav.equipment"><i class="fa-solid fa-cube"></i><span>Equipment</span></a>
-        <a href="services.html" data-i18n="nav.services"><i class="fa-solid fa-wrench"></i><span>Services</span></a>
-        <a href="about.html" data-i18n="nav.about"><i class="fa-solid fa-circle-info"></i><span>About Us</span></a>
-        <a href="contact.html" data-i18n="nav.contact"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
-      </div>
-      <button class="navbar-toggle" aria-label="Toggle Navigation"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
+  <div id="navbar-placeholder"></div>
 
-  <section style="min-height:80vh; display:flex; align-items:center; justify-content:center; background:var(--color-bg-secondary); padding:80px 20px;">
-    <div style="text-align:center; max-width:500px;">
-      <div style="font-size:120px; font-weight:900; color:#004b87; line-height:1; margin-bottom:16px;">404</div>
+  <section class="error-page">
+    <div class="error-page-inner">
+      <div class="error-code">404</div>
       <i class="fa-solid fa-water-ladder" style="font-size:48px; color:#b3d4ff; margin-bottom:24px; display:block;"></i>
-      <h1 style="font-size:28px; margin-bottom:12px; color:#222;">Page Not Found</h1>
-      <p style="color:#666; font-size:16px; line-height:1.6; margin-bottom:32px;">The page you're looking for doesn't exist or has been moved.</p>
-      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+      <h1 class="error-title">Page Not Found</h1>
+      <p class="error-sub">The page you're looking for doesn't exist or has been moved.</p>
+      <div class="error-links">
         <a href="index.html" class="btn btn-primary btn-lg"><i class="fa-solid fa-house"></i> Go Home</a>
         <a href="products.html" class="btn btn-outline btn-lg"><i class="fa-solid fa-boxes-stacked"></i> View Equipment</a>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="container footer-bottom">
-      <p>&copy; 2026 Max Pool. All rights reserved.</p>
-    </div>
-  </footer>
+  <div id="footer-placeholder"></div>
 
   <script src="js/config.js"></script>
+  <script src="js/layout.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

@@ -31,6 +31,7 @@ export default function Layout() {
     { to: '/messages',   icon: 'fa-envelope',        label: 'Messages',   badge: unreadMsgs, badgeColor: '#3b82f6' },
     { to: '/orders',     icon: 'fa-cart-shopping',   label: 'Quotations', badge: newOrders,  badgeColor: '#e74c3c' },
     { to: '/leads',      icon: 'fa-user-plus',       label: 'Leads' },
+    { to: '/pricing',    icon: 'fa-tags',             label: 'Pricing Table' },
     { to: '/blog',       icon: 'fa-newspaper',       label: 'Blog Posts' },
     { to: '/pages',      icon: 'fa-file-lines',      label: 'Pages' },
     { to: '/settings',   icon: 'fa-sliders',         label: 'Site Settings' },

@@ -173,3 +173,27 @@ body {
   .srv-row           { direction: rtl; }
   .pv2-header        { flex-direction: column; }
 }
+
+
+/* === Conversion Optimization RTL overrides — frontend-conversion-optimization spec === */
+
+/* ── Trust Bar RTL ──────────────────────────────────────── */
+.trust-bar .trust-bar-inner {
+  flex-direction: row-reverse;
+}
+
+.trust-badge {
+  flex-direction: row-reverse;
+}
+
+/* ── Sticky CTA Bar RTL ─────────────────────────────────── */
+@media (max-width: 767px) {
+  .sticky-cta-bar {
+    flex-direction: row-reverse;
+  }
+}
+
+/* ── Product Card Actions RTL ───────────────────────────── */
+.product-card-actions {
+  flex-direction: row-reverse;
+}

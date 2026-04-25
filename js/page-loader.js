@@ -48,8 +48,8 @@
         const btn1  = document.querySelector('[data-i18n="home.hero.btn1"]');
         const btn2  = document.querySelector('[data-i18n="home.hero.btn2"]');
         if (badge) badge.textContent = t(c, 'badge', 'badgeAr');
-        if (title) title.innerHTML   = t(c, 'title', 'titleAr');
-        if (sub)   sub.textContent   = t(c, 'subtitle', 'subtitleAr');
+        if (title) { title.innerHTML = t(c, 'title', 'titleAr'); title.dataset.pageLoaded = '1'; }
+        if (sub)   { sub.textContent = t(c, 'subtitle', 'subtitleAr'); sub.dataset.pageLoaded = '1'; }
         if (btn1)  btn1.textContent  = t(c, 'btn1Text', 'btn1TextAr');
         if (btn2)  btn2.textContent  = t(c, 'btn2Text', 'btn2TextAr');
         break;
@@ -137,10 +137,8 @@
     const slug = getSlug();
     if (!['home', 'about', 'services', 'contact'].includes(slug)) return;
     try {
-      const res  = await fetch(`${API}/api/pages/slug/${slug}`);
-      const data = await res.json();
-      if (!data.success || !data.data) return;
-      const page = data.data;
+      const page = await window.MaxPoolAPI.getPage(slug);
+      if (!page) return;
       applySEO(page);
       if (page.sections) {
         page.sections
@@ -148,7 +146,7 @@
           .sort((a, b) => a.order - b.order)
           .forEach(applySection);
       }
-    } catch (_) { /* fail silently — hardcoded HTML is the fallback */ }
+    } catch (_) { /* fail silently */ }
   }
 
   if (document.readyState === 'loading') {
