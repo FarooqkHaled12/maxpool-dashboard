@@ -1441,7 +1441,7 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 .calc-type-option input:checked + .calc-type-card i { color: #00b4d8; }
 
 .calc-dims { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.calc-field { }
+.calc-field { display: flex; flex-direction: column; }
 .calc-input-wrap { display: flex; align-items: center; gap: 0; }
 .calc-input {
   flex: 1; text-align: center; background: rgba(255,255,255,0.1);
